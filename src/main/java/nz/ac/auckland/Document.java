@@ -1,7 +1,11 @@
 package nz.ac.auckland;
 
-/**
- * Created by DarthPenguin on 5/23/18.
- */
+
 public class Document {
+    private Category _category;
+
+    public Document(Category category) {
+        _category = category;
+    }
+
 }
