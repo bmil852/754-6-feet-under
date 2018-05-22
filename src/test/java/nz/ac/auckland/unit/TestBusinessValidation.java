@@ -42,13 +42,13 @@ public class TestBusinessValidation {
     public void calculate_popularity_of_a_category(){
         //Given
         Set<Category> _categories = categories;
-        Map<Category,Integer> documentCounts = new HashMap();
-        int total = 0;
+        Map<Category,Double> documentCounts = new HashMap();
+        double total = 0.0;
 
         //When
         for(Category c : _categories){
-            documentCounts.put(c,c.getDocumentCount());
-            total += c.getDocumentCount();
+            documentCounts.put(c,(double) c.getDocumentCount());
+            total += (double) c.getDocumentCount();
         }
 
         //replace list value at index
