@@ -1,7 +1,32 @@
 package nz.ac.auckland;
 
-/**
- * Created by DarthPenguin on 5/23/18.
- */
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Category {
+    private String _categoryName;
+    private List<Document> _documents;
+    private double _popularity;
+
+    public Category(String categoryName) {
+        _categoryName = categoryName;
+        _documents = new ArrayList<Document>();
+    }
+
+    public int getDocumentCount() {
+        return _documents.size();
+    }
+
+    public void addDocument(Document d) {
+        _documents.add(d);
+    }
+
+    public void updatePopularity(double newPopularity) {
+        _popularity = newPopularity;
+    }
+
+    public double getPopularity() {
+        return _popularity;
+    }
 }
