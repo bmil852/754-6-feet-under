@@ -29,16 +29,22 @@ public class Login {
         }
     }
 
-    public boolean signIn(String username, String password, Role roleType) {
-        boolean validSignIn = false;
+    public void signIn(String username, String password, Role roleType) {
         for (Client c : _registered.get(roleType)) {
             if (c.getUsername().equals(username) && c.getPassword().equals(password)) {
                 _active.get(roleType).add(c);
-                validSignIn = true;
             }
         }
-        return validSignIn;
+    }
 
+    public boolean checkClientSignedIn(Client client, Role roleType) {
+        boolean isSignedIn = false;
+        for (Client c : _active.get(roleType)) {
+            if (c.getUsername().equals(client.getUsername()) && c.getPassword().equals(client.getPassword())) {
+                isSignedIn = true;
+            }
+        }
+        return isSignedIn;
     }
 
 }
