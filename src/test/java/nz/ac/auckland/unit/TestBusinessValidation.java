@@ -123,4 +123,29 @@ public class TestBusinessValidation {
         assertThat(category1.getRelevance(), equalTo(0.25));
     }
 
+
+    @Test
+    public void users_obtain_maturity_of_the_business_idea(){
+        //Given
+        c1.updatePopularity(0.2);
+        c1.setRelevance(Relevance.RELEVANT); //0.5
+        c2.updatePopularity(0.3);
+        c2.setRelevance(Relevance.VERY_RELEVANT); //0.75
+        c3.updatePopularity(0.5);
+        c3.setRelevance(Relevance.THE_SAME); //1.0
+
+        maturity = 0.0;
+
+        //When
+        for(Category c : categories){
+            double popularity = c.getPopularity();
+            double relevance = c.getRelevance().getValue();
+            maturity += (popularity*relevance);
+        }
+
+        //Then
+        assertThat(maturity, equalTo(0.775));
+
+    }
+
 }
