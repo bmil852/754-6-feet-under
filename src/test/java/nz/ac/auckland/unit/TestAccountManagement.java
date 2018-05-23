@@ -39,4 +39,19 @@ public class TestAccountManagement {
         //Then
         assertEquals(true, validSignIn);
     }
+
+    @Test
+    public void when_user_wants_to_sign_in_with_invalid_credentials() {
+        //Given
+        Client client = new Client("User1", "Password1");
+        _login = new Login();
+        _login.register(client, Role.USER);
+
+        //When
+        _login.signIn("WrongUser1", "WrongPassword1", Role.USER);
+        boolean invalidSignIn = _login.checkInvalidSignIn(client, Role.USER);
+
+        //Then
+        assertEquals(false, invalidSignIn);
+    }
 }
