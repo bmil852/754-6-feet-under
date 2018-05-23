@@ -58,4 +58,44 @@ public class TestBusinessValidation {
         assertThat(c3.getPopularity(), equalTo(0.2));
 
     }
+
+    @Test
+    public void calculate_popularity_of_a_category_of_odd_number_of_documents(){
+        //Given
+        Map<Category,Double> documentCounts = new HashMap();
+        int total = 0;
+        for (int i = 0; i < 45; i++) {
+            if (i < 15) {
+                Document d1 = new Document("Mock text for a document of category 1", c1);
+                c1.addDocument(d1);
+            } else if (i < 20) {
+                Document d2 = new Document("Mock text for a document object of category 2", c2);
+                c2.addDocument(d2);
+            } else {
+                Document d3 = new Document("Mock text for a document object of category 3", c3);
+                c3.addDocument(d3);
+            }
+        }
+        categories.add(c1);
+        categories.add(c2);
+        categories.add(c3);
+
+        //When
+        for(Category c : categories){
+            documentCounts.put(c,(double) c.getDocumentCount());
+            total += (double) c.getDocumentCount();
+        }
+
+        //replace list value at index
+        c1.updatePopularity(documentCounts.get(c1)/total);
+        c2.updatePopularity(documentCounts.get(c2)/total);
+        c3.updatePopularity(documentCounts.get(c3)/total);
+
+        //Then
+        assertThat(c1.getPopularity(), equalTo(0.4482758620689655));
+        assertThat(c2.getPopularity(), equalTo(0.2413793103448276));
+        assertThat(c3.getPopularity(), equalTo(0.3103448275862069));
+
+    }
+
 }
