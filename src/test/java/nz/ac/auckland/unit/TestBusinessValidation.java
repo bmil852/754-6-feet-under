@@ -1,29 +1,26 @@
 package nz.ac.auckland.unit;
 
-import nz.ac.auckland.BusinessValidationService;
+import nz.ac.auckland.BusinessValidator;
 import nz.ac.auckland.Category;
 import nz.ac.auckland.Document;
 import nz.ac.auckland.Relevance;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.text.DecimalFormat;
 import java.util.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 public class TestBusinessValidation {
-    Category c1, c2, c3, c4;
+    Category c1, c2, c3;
     Set<Category> categories = new HashSet<>();
-    double total;
+    BusinessValidator bvs = new BusinessValidator();
 
     @Before
     public void setUp(){
         c1 = new Category("C1");
         c2 = new Category("C2");
         c3 = new Category("C3");
-        total = 0.0;
         for (int i = 0; i < 100; i++) {
             if (i < 50) {
                 Document d1 = new Document("Mock text for a document of category 1", c1);
@@ -45,16 +42,9 @@ public class TestBusinessValidation {
     public void calculate_popularity_of_a_category(){
         //Given
         Set<Category> _categories = categories;
-        Map<Category,Double> documentCounts = new HashMap();
 
         //When
-        for(Category c : _categories){
-            documentCounts.put(c,(double) c.getDocumentCount());
-            total += (double) c.getDocumentCount();
-        }
-        c1.updatePopularity(documentCounts.get(c1)/total);
-        c2.updatePopularity(documentCounts.get(c2)/total);
-        c3.updatePopularity(documentCounts.get(c3)/total);
+        bvs.calculateCategoryPopularities(_categories);
 
         //Then
         assertThat(c1.getPopularity(), equalTo(0.5));
@@ -66,7 +56,7 @@ public class TestBusinessValidation {
     @Test
     public void calculate_popularity_of_a_category_of_odd_number_of_documents(){
         //Given
-        Map<Category,Double> documentCounts = new HashMap();
+        Set<Category> _categories = categories;
         for (int i = 0; i < 45; i++) {
             if (i < 15) {
                 Document d1 = new Document("Mock text for a document of category 1", c1);
@@ -79,18 +69,12 @@ public class TestBusinessValidation {
                 c3.addDocument(d3);
             }
         }
-        categories.add(c1);
-        categories.add(c2);
-        categories.add(c3);
+        _categories.add(c1);
+        _categories.add(c2);
+        _categories.add(c3);
 
         //When
-        for(Category c : categories){
-            documentCounts.put(c,(double) c.getDocumentCount());
-            total += (double) c.getDocumentCount();
-        }
-        c1.updatePopularity(documentCounts.get(c1)/total);
-        c2.updatePopularity(documentCounts.get(c2)/total);
-        c3.updatePopularity(documentCounts.get(c3)/total);
+        bvs.calculateCategoryPopularities(_categories);
 
         //Then
         assertThat(c1.getPopularity(), equalTo(0.448));
@@ -101,17 +85,16 @@ public class TestBusinessValidation {
     @Test(expected=NumberFormatException.class)
     public void calculate_popularity_of_a_category_when_no_documents_are_returned(){
         //Given
-        Map<Category,Double> documentCounts = new HashMap();
-        categories.clear();
+        Set<Category> _categories = categories;
+        _categories.clear();
         Category c4 = new Category("C4");
+        _categories.add(c4);
 
         //When
-        documentCounts.put(c4,(double) c4.getDocumentCount());
-        total += (double) c4.getDocumentCount();
+        bvs.calculateCategoryPopularities(_categories);
 
         //Then
-        c4.updatePopularity(documentCounts.get(c4)/total);
-        fail("Cannot update popularity of a category which has no documents");
+        fail("Should throw an exception as you cannot have a category without documents");
     }
 
     @Test
@@ -130,25 +113,15 @@ public class TestBusinessValidation {
     @Test
     public void users_obtain_maturity_of_the_business_idea(){
         //Given
-        c1.updatePopularity(0.2);
         c1.setRelevance(Relevance.RELEVANT);
-        c2.updatePopularity(0.3);
         c2.setRelevance(Relevance.VERY_RELEVANT);
-        c3.updatePopularity(0.5);
         c3.setRelevance(Relevance.THE_SAME);
-        double maturity = 0.0;
 
         //When
-        for(Category c : categories){
-            double popularity = c.getPopularity();
-            double relevance = c.getRelevance();
-            maturity += (popularity*relevance);
-        }
+        double maturity = bvs.getOverallMaturity(categories);
 
         //Then
-        DecimalFormat df = new DecimalFormat("#0.000");
-        maturity = Double.parseDouble(df.format(maturity));
-        assertThat(maturity, equalTo(0.825));
+        assertThat(maturity, equalTo(0.675));
 
     }
 
@@ -156,20 +129,13 @@ public class TestBusinessValidation {
     public void users_obtain_maturity_of_the_business_idea_with_category_without_relevance(){
         //Given
         Category c4 = new Category("C4");
-        c4.updatePopularity(0.2);
-        c4.updatePopularity(0.3);
         c2.setRelevance(Relevance.NOT_RELEVANT);
-        c3.updatePopularity(0.5);
         c3.setRelevance(Relevance.THE_SAME);
         categories.clear();
         categories.add(c4);
-        categories.add(c2);
-        categories.add(c3);
-
-        double maturity = 0.0;
 
         //When
-        BusinessValidationService bvs = new BusinessValidationService();
+        BusinessValidator bvs = new BusinessValidator();
         bvs.getOverallMaturity(categories);
 
 
