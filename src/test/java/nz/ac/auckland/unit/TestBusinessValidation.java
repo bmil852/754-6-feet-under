@@ -13,11 +13,12 @@ import static org.junit.Assert.fail;
 
 public class TestBusinessValidation {
     Category c1, c2, c3;
-    Set<Category> categories = new HashSet<>();
-    BusinessValidator bvs = new BusinessValidator();
+    Set<Category> categories = new HashSet<Category>();
+    BusinessValidator bvs;
 
     @Before
     public void setUp(){
+        bvs = new BusinessValidator(categories);
         c1 = new Category("C1");
         c2 = new Category("C2");
         c3 = new Category("C3");
@@ -33,9 +34,9 @@ public class TestBusinessValidation {
                 c3.addDocument(d3);
             }
         }
-        categories.add(c1);
-        categories.add(c2);
-        categories.add(c3);
+        bvs.addCategory(c1);
+        bvs.addCategory(c2);
+        bvs.addCategory(c3);
     }
 
     @Test
@@ -44,13 +45,12 @@ public class TestBusinessValidation {
         Set<Category> _categories = categories;
 
         //When
-        bvs.calculateCategoryPopularities(_categories);
+        bvs.calculateCategoryPopularities();
 
         //Then
         assertThat(c1.getPopularity(), equalTo(0.5));
         assertThat(c2.getPopularity(), equalTo(0.3));
         assertThat(c3.getPopularity(), equalTo(0.2));
-
     }
 
     @Test
@@ -69,12 +69,12 @@ public class TestBusinessValidation {
                 c3.addDocument(d3);
             }
         }
-        _categories.add(c1);
-        _categories.add(c2);
-        _categories.add(c3);
+        bvs.addCategory(c1);
+        bvs.addCategory(c2);
+        bvs.addCategory(c3);
 
         //When
-        bvs.calculateCategoryPopularities(_categories);
+        bvs.calculateCategoryPopularities();
 
         //Then
         assertThat(c1.getPopularity(), equalTo(0.448));
@@ -85,13 +85,13 @@ public class TestBusinessValidation {
     @Test(expected=NumberFormatException.class)
     public void calculate_popularity_of_a_category_when_no_documents_are_returned(){
         //Given
-        Set<Category> _categories = categories;
-        _categories.clear();
+        categories.clear();
+        BusinessValidator _bvs = new BusinessValidator(categories);
         Category c4 = new Category("C4");
-        _categories.add(c4);
+        _bvs.addCategory(c4);
 
         //When
-        bvs.calculateCategoryPopularities(_categories);
+        _bvs.calculateCategoryPopularities();
 
         //Then
         fail("Should throw an exception as you cannot have a category without documents");
@@ -118,11 +118,10 @@ public class TestBusinessValidation {
         c3.setRelevance(Relevance.THE_SAME);
 
         //When
-        double maturity = bvs.getOverallMaturity(categories);
+        double maturity = bvs.getOverallMaturity();
 
         //Then
         assertThat(maturity, equalTo(0.675));
-
     }
 
     @Test(expected=RuntimeException.class)
@@ -131,17 +130,14 @@ public class TestBusinessValidation {
         Category c4 = new Category("C4");
         c2.setRelevance(Relevance.NOT_RELEVANT);
         c3.setRelevance(Relevance.THE_SAME);
-        categories.clear();
         categories.add(c4);
 
         //When
-        BusinessValidator bvs = new BusinessValidator();
-        bvs.getOverallMaturity(categories);
+        bvs.getOverallMaturity();
 
 
         //Then
         fail("Category needs to have relevance set before maturity can be computed");
-
     }
 
 }

@@ -5,19 +5,33 @@ import java.util.Set;
 
 public class BusinessValidator {
 
-    public void calculateCategoryPopularities(Set<Category> _categories) {
-        double corpusSize = 0.0;
-        for (Category c : _categories) {
-            corpusSize += c.getDocumentCount();
-        }
-        for (Category c : _categories) {
-            c.updatePopularity((double) c.getDocumentCount() / (corpusSize));
+    private Set<Category> _categories;
+
+    public BusinessValidator(Set<Category> categories) {
+        _categories = categories;
+    }
+
+    public void addCategory(Category c) {
+        _categories.add(c);
+    }
+
+    public void calculateCategoryPopularities() {
+        try {
+            double corpusSize = 0.0;
+            for (Category c : _categories) {
+                corpusSize += c.getDocumentCount();
+            }
+            for (Category c : _categories) {
+                c.updatePopularity((double) c.getDocumentCount() / (corpusSize));
+            }
+        }catch(NumberFormatException e){
+            throw new NumberFormatException("Cannot update popularity of a category which has no documents");
         }
     }
 
-    public double getOverallMaturity(Set<Category> _categories) {
+    public double getOverallMaturity() {
         try {
-            calculateCategoryPopularities(_categories);
+            calculateCategoryPopularities();
             double maturity = 0.0;
             for (Category c : _categories) {
                 if(c.getRelevance() <= 0.0){
