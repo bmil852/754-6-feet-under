@@ -1,5 +1,8 @@
 package nz.ac.auckland.unit;
 
+import nz.ac.auckland.Client;
+import nz.ac.auckland.Login;
+import nz.ac.auckland.Role;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -15,7 +18,8 @@ public class TestAccountManagement {
         _login.register(client, Role.USER);
 
         //When
-        boolean validSignIn = _login.signIn("User1", "Password1", Role.USER);
+        _login.signIn("User1", "Password1", Role.USER);
+        boolean validSignIn = _login.checkUserSignedIn(client, Role.USER);
 
         //Then
         assertEquals(true, validSignIn);
