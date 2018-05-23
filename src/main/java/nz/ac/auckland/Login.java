@@ -47,6 +47,8 @@ public class Login {
         } catch (RuntimeException e){
             if(roleType.equals(Role.USER)) {
                 throw new RuntimeException("User authentication failed - invalid username or password provided for user");
+            }else if(roleType.equals(Role.ADMINISTRATOR)) {
+                throw new RuntimeException("Administrator authentication failed - invalid username or password provided for administrator");
             }
         }
         return isSignedIn;
