@@ -53,7 +53,7 @@ public class TestAccountManagement {
         _login.checkClientSignedIn(client, Role.USER);
 
         //Then
-        fail("User authentication failed - invalid username or password provided for user");
+        fail(Role.USER.exceptionMessage);
     }
 
     @Test(expected=RuntimeException.class)
@@ -68,6 +68,6 @@ public class TestAccountManagement {
         _login.checkClientSignedIn(client, Role.ADMINISTRATOR);
 
         //Then
-        fail("Administrator authentication failed - invalid username or password provided for administrator");
+        fail(Role.ADMINISTRATOR.exceptionMessage);
     }
 }
