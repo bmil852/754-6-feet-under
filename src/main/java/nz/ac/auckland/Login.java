@@ -55,8 +55,10 @@ public class Login {
     }
 
     public List<String> getRegistered(Role roleType) {
-        List<String> returnList = new ArrayList<String>();
-
-        return returnList;
+        List<String> list = new ArrayList<String>();
+        for (Client c : _registered.get(roleType)) {
+            list.add(c.getUsername());
+        }
+        return list;
     }
 }
