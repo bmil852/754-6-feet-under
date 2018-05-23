@@ -44,4 +44,9 @@ public class Login {
         return isSignedIn;
     }
 
+    public boolean checkInvalidSignIn(Client client, Role roleType) {
+
+        return true;
+    }
+
 }
