@@ -151,4 +151,27 @@ public class TestBusinessValidation {
 
     }
 
+    @Test
+    public void users_obtain_maturity_of_the_business_idea_with_category_without_relevance(){
+        //Given
+        c1.updatePopularity(0.2);
+        c2.updatePopularity(0.3);
+        c2.setRelevance(Relevance.NOT_RELEVANT);
+        c3.updatePopularity(0.5);
+        c3.setRelevance(Relevance.THE_SAME);
+        double maturity = 0.0;
+
+        //When
+        for(Category c : categories){
+            double popularity = c.getPopularity();
+            double relevance = c.getRelevance();
+            maturity += (popularity*relevance);
+        }
+
+
+        //Then
+        fail("Category needs to have relevance set before maturity can be computed");
+
+    }
+
 }
