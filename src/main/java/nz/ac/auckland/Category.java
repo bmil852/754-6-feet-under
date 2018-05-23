@@ -1,5 +1,6 @@
 package nz.ac.auckland;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +18,17 @@ public class Category {
         return _documents.size();
     }
 
+    public List<Document> getDocuments() {
+        return _documents;
+    }
+
     public void addDocument(Document d) {
         _documents.add(d);
     }
 
     public void updatePopularity(double newPopularity) {
-        _popularity = newPopularity;
+        DecimalFormat df = new DecimalFormat("#0.00");
+        _popularity = Double.parseDouble(df.format(newPopularity));
     }
 
     public double getPopularity() {
