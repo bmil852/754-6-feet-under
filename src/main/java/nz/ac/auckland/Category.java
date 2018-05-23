@@ -8,6 +8,7 @@ public class Category {
     private String _categoryName;
     private List<Document> _documents;
     private double _popularity;
+    private double _relevance;
 
     public Category(String categoryName) {
         _categoryName = categoryName;
@@ -40,20 +41,25 @@ public class Category {
     }
 
     public double getRelevance() {
-        return 0.0;
+        return _relevance;
     }
 
     public void setRelevance(String relevance) {
         switch (relevance){
             case "NOT_RELEVANT":
+                _relevance = 0.0;
                 break;
             case "WEAK_RELEVANT":
+                _relevance = 0.25;
                 break;
             case "RELEVANT":
+                _relevance = 0.5;
                 break;
             case "VERY_RELEVANT":
+                _relevance = 0.75;
                 break;
             case "THE_SAME":
+                _relevance = 1.0;
                 break;
             default:
                 break;
