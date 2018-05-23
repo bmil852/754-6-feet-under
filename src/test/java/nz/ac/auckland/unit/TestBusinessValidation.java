@@ -107,6 +107,7 @@ public class TestBusinessValidation {
 
         //Then
         c4.updatePopularity(documentCounts.get(c4)/total);
+        fail("Cannot update popularity of a category which has no documents");
     }
 
 }
