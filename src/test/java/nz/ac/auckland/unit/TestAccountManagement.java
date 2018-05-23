@@ -52,6 +52,6 @@ public class TestAccountManagement {
         boolean invalidSignIn = _login.checkInvalidSignIn(client, Role.USER);
 
         //Then
-        assertEquals(false, invalidSignIn);
+        assertEquals(true, invalidSignIn);
     }
 }

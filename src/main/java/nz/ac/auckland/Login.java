@@ -45,8 +45,13 @@ public class Login {
     }
 
     public boolean checkInvalidSignIn(Client client, Role roleType) {
-
-        return true;
+        boolean isSignedIn = true;
+        for (Client c : _active.get(roleType)) {
+            if (c.getUsername().equals(client.getUsername()) && c.getPassword().equals(client.getPassword())) {
+                isSignedIn = false;
+            }
+        }
+        return isSignedIn;
     }
 
 }
