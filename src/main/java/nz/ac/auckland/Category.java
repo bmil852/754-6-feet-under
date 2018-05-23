@@ -38,4 +38,25 @@ public class Category {
     public double getPopularity() {
         return _popularity;
     }
+
+    public double getRelevance() {
+        return 0.0;
+    }
+
+    public void setRelevance(String relevance) {
+        switch (relevance){
+            case "NOT_RELEVANT":
+                break;
+            case "WEAK_RELEVANT":
+                break;
+            case "RELEVANT":
+                break;
+            case "VERY_RELEVANT":
+                break;
+            case "THE_SAME":
+                break;
+            default:
+                break;
+        }
+    }
 }

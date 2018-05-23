@@ -116,10 +116,10 @@ public class TestBusinessValidation {
         Category category1 = c1;
 
         //When
-        category1.setRelevance(WEAK_RELEVANT); //value = 0.25
+        category1.setRelevance("WEAK_RELEVANT"); //value = 0.25
 
         //Then
-        assertThat(category1.getRelevance, equalTo(0.25));
+        assertThat(category1.getRelevance(), equalTo(0.25));
     }
 
 }
