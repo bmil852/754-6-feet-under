@@ -18,8 +18,7 @@ public class TestAccountManagement {
         _login.register(client, Role.USER);
 
         //When
-        _login.signIn("User1", "Password1", Role.USER);
-        boolean validSignIn = _login.checkUserSignedIn(client, Role.USER);
+        boolean validSignIn = _login.signIn("User1", "Password1", Role.USER);
 
         //Then
         assertEquals(true, validSignIn);
