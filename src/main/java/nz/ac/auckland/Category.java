@@ -44,25 +44,7 @@ public class Category {
         return _relevance;
     }
 
-    public void setRelevance(String relevance) {
-        switch (relevance){
-            case "NOT_RELEVANT":
-                _relevance = 0.0;
-                break;
-            case "WEAK_RELEVANT":
-                _relevance = 0.25;
-                break;
-            case "RELEVANT":
-                _relevance = 0.5;
-                break;
-            case "VERY_RELEVANT":
-                _relevance = 0.75;
-                break;
-            case "THE_SAME":
-                _relevance = 1.0;
-                break;
-            default:
-                break;
-        }
+    public void setRelevance(Relevance relevance) {
+        _relevance = relevance.nominal_value;
     }
 }

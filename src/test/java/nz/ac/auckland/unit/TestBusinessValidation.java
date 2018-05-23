@@ -2,6 +2,7 @@ package nz.ac.auckland.unit;
 
 import nz.ac.auckland.Category;
 import nz.ac.auckland.Document;
+import nz.ac.auckland.Relevance;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.*;
@@ -116,7 +117,7 @@ public class TestBusinessValidation {
         Category category1 = c1;
 
         //When
-        category1.setRelevance("WEAK_RELEVANT"); //value = 0.25
+        category1.setRelevance(Relevance.WEAK_RELEVANT);
 
         //Then
         assertThat(category1.getRelevance(), equalTo(0.25));
