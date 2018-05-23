@@ -144,7 +144,7 @@ public class TestBusinessValidation {
         }
 
         //Then
-        assertThat(maturity, equalTo(0.775));
+        assertThat(maturity, equalTo(0.825));
 
     }
 
