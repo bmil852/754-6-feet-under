@@ -53,4 +53,10 @@ public class Login {
         }
         return isSignedIn;
     }
+
+    public List<String> getRegistered(Role roleType) {
+        List<String> returnList = new ArrayList<String>();
+
+        return returnList;
+    }
 }
