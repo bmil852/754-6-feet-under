@@ -134,12 +134,12 @@ public class TestBusinessValidation {
         c3.updatePopularity(0.5);
         c3.setRelevance(Relevance.THE_SAME); //1.0
 
-        maturity = 0.0;
+        double maturity = 0.0;
 
         //When
         for(Category c : categories){
             double popularity = c.getPopularity();
-            double relevance = c.getRelevance().getValue();
+            double relevance = c.getRelevance();
             maturity += (popularity*relevance);
         }
 
