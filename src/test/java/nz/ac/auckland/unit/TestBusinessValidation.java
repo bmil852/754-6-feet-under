@@ -110,4 +110,16 @@ public class TestBusinessValidation {
         fail("Cannot update popularity of a category which has no documents");
     }
 
+    @Test
+    public void set_relevance_of_a_category(){
+        //Given
+        Category category1 = c1;
+
+        //When
+        category1.setRelevance(WEAK_RELEVANT); //value = 0.25
+
+        //Then
+        assertThat(category1.getRelevance, equalTo(0.25));
+    }
+
 }
