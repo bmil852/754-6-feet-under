@@ -29,7 +29,7 @@ public class Category {
 
     public void updatePopularity(double newPopularity) {
         try {
-            DecimalFormat df = new DecimalFormat("#0.00");
+            DecimalFormat df = new DecimalFormat("#0.000");
             _popularity = Double.parseDouble(df.format(newPopularity));
         }catch(NumberFormatException e){
             throw new NumberFormatException("Cannot update popularity of a category which has no documents");

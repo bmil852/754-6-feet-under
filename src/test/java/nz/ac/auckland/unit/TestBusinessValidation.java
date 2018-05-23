@@ -5,6 +5,8 @@ import nz.ac.auckland.Document;
 import nz.ac.auckland.Relevance;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.text.DecimalFormat;
 import java.util.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -128,12 +130,11 @@ public class TestBusinessValidation {
     public void users_obtain_maturity_of_the_business_idea(){
         //Given
         c1.updatePopularity(0.2);
-        c1.setRelevance(Relevance.RELEVANT); //0.5
+        c1.setRelevance(Relevance.RELEVANT);
         c2.updatePopularity(0.3);
-        c2.setRelevance(Relevance.VERY_RELEVANT); //0.75
+        c2.setRelevance(Relevance.VERY_RELEVANT);
         c3.updatePopularity(0.5);
-        c3.setRelevance(Relevance.THE_SAME); //1.0
-
+        c3.setRelevance(Relevance.THE_SAME);
         double maturity = 0.0;
 
         //When
@@ -144,6 +145,8 @@ public class TestBusinessValidation {
         }
 
         //Then
+        DecimalFormat df = new DecimalFormat("#0.000");
+        maturity = Double.parseDouble(df.format(maturity));
         assertThat(maturity, equalTo(0.825));
 
     }
