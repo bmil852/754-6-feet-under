@@ -20,9 +20,6 @@ public class Login {
         _active.put(Role.ADMINISTRATOR, new ArrayList<Client>());
     }
 
-
-
-
     public void register(Client client, Role roleType) {
         if (client.getUsername() != null && client.getPassword() != null) {
             _registered.get(roleType).add(client);

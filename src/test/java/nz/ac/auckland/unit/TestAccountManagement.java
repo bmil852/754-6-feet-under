@@ -24,4 +24,19 @@ public class TestAccountManagement {
         //Then
         assertEquals(true, validSignIn);
     }
+
+    @Test
+    public void when_administrator_wants_to_sign_in() {
+        //Given
+        Client client = new Client("Administrator1", "PasswordAdmin1");
+        _login = new Login();
+        _login.register(client, Role.ADMINISTRATOR);
+
+        //When
+        _login.signIn("Administrator1", "PasswordAdmin1", Role.ADMINISTRATOR);
+        boolean validSignIn = _login.checkClientSignedIn(client, Role.ADMINISTRATOR);
+
+        //Then
+        assertEquals(true, validSignIn);
+    }
 }
