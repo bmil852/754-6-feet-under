@@ -5,6 +5,7 @@ import nz.ac.auckland.Login;
 import nz.ac.auckland.Role;
 import org.junit.Test;
 
+import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 
 public class TestAccountManagement {
@@ -40,7 +41,7 @@ public class TestAccountManagement {
         assertEquals(true, validSignIn);
     }
 
-    @Test
+    @Test(expected=RuntimeException.class)
     public void when_user_wants_to_sign_in_with_invalid_credentials() {
         //Given
         Client client = new Client("User1", "Password1");
@@ -49,9 +50,9 @@ public class TestAccountManagement {
 
         //When
         _login.signIn("WrongUser1", "WrongPassword1", Role.USER);
-        boolean invalidSignIn = _login.checkInvalidSignIn(client, Role.USER);
+        _login.checkClientSignedIn(client, Role.USER);
 
         //Then
-        assertEquals(true, invalidSignIn);
+        fail("User authentication failed - invalid username or password provided for user");
     }
 }

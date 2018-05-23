@@ -34,24 +34,21 @@ public class Login {
         }
     }
 
-    public boolean checkClientSignedIn(Client client, Role roleType) {
+    public boolean checkClientSignedIn(Client client, Role roleType){
         boolean isSignedIn = false;
-        for (Client c : _active.get(roleType)) {
-            if (c.getUsername().equals(client.getUsername()) && c.getPassword().equals(client.getPassword())) {
-                isSignedIn = true;
+        try {
+            for (Client c : _active.get(roleType)) {
+                if (c.getUsername().equals(client.getUsername()) && c.getPassword().equals(client.getPassword())) {
+                    isSignedIn = true;
+                    return isSignedIn;
+                }
+            }
+        throw new RuntimeException();
+        } catch (RuntimeException e){
+            if(roleType.equals(Role.USER)) {
+                throw new RuntimeException("User authentication failed - invalid username or password provided for user");
             }
         }
         return isSignedIn;
     }
-
-    public boolean checkInvalidSignIn(Client client, Role roleType) {
-        boolean isSignedIn = true;
-        for (Client c : _active.get(roleType)) {
-            if (c.getUsername().equals(client.getUsername()) && c.getPassword().equals(client.getPassword())) {
-                isSignedIn = false;
-            }
-        }
-        return isSignedIn;
-    }
-
 }
