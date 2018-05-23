@@ -1,5 +1,6 @@
 package nz.ac.auckland.unit;
 
+import nz.ac.auckland.BusinessValidationService;
 import nz.ac.auckland.Category;
 import nz.ac.auckland.Document;
 import nz.ac.auckland.Relevance;
@@ -13,7 +14,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 public class TestBusinessValidation {
-    Category c1, c2, c3;
+    Category c1, c2, c3, c4;
     Set<Category> categories = new HashSet<>();
     double total;
 
@@ -151,22 +152,25 @@ public class TestBusinessValidation {
 
     }
 
-    @Test
+    @Test(expected=RuntimeException.class)
     public void users_obtain_maturity_of_the_business_idea_with_category_without_relevance(){
         //Given
-        c1.updatePopularity(0.2);
-        c2.updatePopularity(0.3);
+        Category c4 = new Category("C4");
+        c4.updatePopularity(0.2);
+        c4.updatePopularity(0.3);
         c2.setRelevance(Relevance.NOT_RELEVANT);
         c3.updatePopularity(0.5);
         c3.setRelevance(Relevance.THE_SAME);
+        categories.clear();
+        categories.add(c4);
+        categories.add(c2);
+        categories.add(c3);
+
         double maturity = 0.0;
 
         //When
-        for(Category c : categories){
-            double popularity = c.getPopularity();
-            double relevance = c.getRelevance();
-            maturity += (popularity*relevance);
-        }
+        BusinessValidationService bvs = new BusinessValidationService();
+        bvs.getOverallMaturity(categories);
 
 
         //Then

@@ -8,7 +8,7 @@ public class Category {
     private String _categoryName;
     private List<Document> _documents;
     private double _popularity;
-    private double _relevance;
+    private double _relevance = -1.0;
 
     public Category(String categoryName) {
         _categoryName = categoryName;
