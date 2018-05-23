@@ -92,9 +92,9 @@ public class TestBusinessValidation {
         c3.updatePopularity(documentCounts.get(c3)/total);
 
         //Then
-        assertThat(c1.getPopularity(), equalTo(0.45));
-        assertThat(c2.getPopularity(), equalTo(0.24));
-        assertThat(c3.getPopularity(), equalTo(0.31));
+        assertThat(c1.getPopularity(), equalTo(0.448));
+        assertThat(c2.getPopularity(), equalTo(0.241));
+        assertThat(c3.getPopularity(), equalTo(0.310));
     }
 
     @Test(expected=NumberFormatException.class)
