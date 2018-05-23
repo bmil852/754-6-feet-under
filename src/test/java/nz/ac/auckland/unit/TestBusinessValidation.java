@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 public class TestBusinessValidation {
     Category c1, c2, c3;
@@ -91,6 +92,21 @@ public class TestBusinessValidation {
         assertThat(c1.getPopularity(), equalTo(0.45));
         assertThat(c2.getPopularity(), equalTo(0.24));
         assertThat(c3.getPopularity(), equalTo(0.31));
+    }
+
+    @Test(expected=NumberFormatException.class)
+    public void calculate_popularity_of_a_category_when_no_documents_are_returned(){
+        //Given
+        Map<Category,Double> documentCounts = new HashMap();
+        categories.clear();
+        Category c4 = new Category("C4");
+
+        //When
+        documentCounts.put(c4,(double) c4.getDocumentCount());
+        total += (double) c4.getDocumentCount();
+
+        //Then
+        c4.updatePopularity(documentCounts.get(c4)/total);
     }
 
 }
