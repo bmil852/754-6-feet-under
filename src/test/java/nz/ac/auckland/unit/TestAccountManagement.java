@@ -70,4 +70,21 @@ public class TestAccountManagement {
         //Then
         fail(Role.ADMINISTRATOR.exceptionMessage);
     }
+
+    @Test
+    public void search_count_for_user_in_current_session(){
+        //Given
+        Client client = new Client("UserActiveSearchCount1", "UserActiveSearchCountPassword1");
+        _login = new Login();
+        _login.register(client, Role.USER);
+        _login.signIn("UserActiveSearchCount1", "UserActiveSearchCountPassword1", Role.USER);
+
+        //When
+        for (int i = 0; i < 4; i++) {
+            client.performSearch();
+        }
+
+        //Then
+        assertEquals(4,client.getCurrentSessionSearchCount());
+    }
 }
