@@ -82,7 +82,11 @@ public class Login {
 
     public List<String> getRegistered(Role roleType) {
         List<String> returnList = new ArrayList<String>();
-
+        if(roleType.equals(Role.ADMINISTRATOR)) {
+            for (Client c : _registered.get(Role.USER)) {
+                returnList.add(c.getUsername());
+            }
+        }
         return returnList;
     }
 }
