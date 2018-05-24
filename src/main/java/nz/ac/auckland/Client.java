@@ -21,7 +21,8 @@ public class Client {
     }
 
     public void performSearch(){
-            _userCurrentSessionSearchCount++;
+        _userCurrentSessionSearchCount++;
+        _totalSearchCount++;
     }
 
     public int getCurrentSessionSearchCount(){
