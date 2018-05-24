@@ -20,7 +20,7 @@ public class AccountManagementStepDefs {
         _login = new Login();
     }
 
-    @When("^the (User|Administrator) provides valid details for signing up$")
+    @When("^the (User|Administrator) provides (valid|invalid) details for signing up$")
     public void the_User_or_Administrator_provides_valid_details_for_signing_up(String clientType) {
         String username = "JohnSmith1";
         String password = "pass1";
@@ -29,7 +29,7 @@ public class AccountManagementStepDefs {
         _login.register(client, roleType);
     }
 
-    @Then("^the (User|Administrator) is succesfully registered with the system$")
+    @Then("^the (User|Administrator) (is|is not) succesfully registered with the system$")
     public void the_User_or_Administrator_is_succesfully_registered_with_the_system(String clientType) {
         Role roleType = (clientType.equals("User")) ? Role.USER : Role.ADMINISTRATOR;
         assertThat(_login.getRegistered(roleType).contains("JohnSmith1"), equalTo(true));
