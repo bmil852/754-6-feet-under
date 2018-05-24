@@ -21,18 +21,11 @@ public class AccountManagementService {
     }
 
     public void register(Client client, Role roleType) {
-        try {
-            for (Client c : _registered.get(roleType)) {
-                if (c.getUsername().equals(client.getUsername())) {
-                    throw new RuntimeException();
-                }
-            }
-
-            if (client.getUsername() != null && client.getPassword() != null) {
-                _registered.get(roleType).add(client);
-            }
-        } catch (RuntimeException e){
-            throw new RuntimeException("User/Administrator registry failed - username already exists in system");
+        if(!uniqueUsername(client)){
+            throw new RuntimeException();
+        }
+        if (client.getUsername() != null && client.getPassword() != null) {
+            _registered.get(roleType).add(client);
         }
     }
 
@@ -98,5 +91,21 @@ public class AccountManagementService {
             }
         }
         return numberOfRegisteredUsers;
+    }
+
+    // Administrators and Users can only be registered if the username they provide doesn't already exist for an
+    // existing Administrator or User client
+    private boolean uniqueUsername(Client client){
+        for (Client c : _registered.get(Role.USER)) {
+            if (c.getUsername().equals(client.getUsername())) {
+                return false;
+            }
+        }
+        for (Client c : _registered.get(Role.ADMINISTRATOR)) {
+            if (c.getUsername().equals(client.getUsername())) {
+                return false;
+            }
+        }
+        return true;
     }
 }
