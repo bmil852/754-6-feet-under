@@ -87,4 +87,24 @@ public class TestAccountManagement {
         //Then
         assertEquals(4,client.getCurrentSessionSearchCount());
     }
+
+    @Test
+    public void active_search_count_for_user_after_sign_out(){
+        //Given
+        Client client = new Client("UserActiveSearchCountSignOut1", "UserActiveSearchCountSignOutPassword1");
+        _login = new Login();
+        _login.register(client, Role.USER);
+        _login.signIn("UserActiveSearchCountSignOut1", "UserActiveSearchCountSignOutPassword1", Role.USER);
+
+        //And client carries out searches before signing out
+        for (int i = 0; i < 4; i++) {
+            client.performSearch();
+        }
+
+        //When
+        _login.signOut(client, Role.USER);
+
+        //Then
+        assertEquals(0,client.getCurrentSessionSearchCount());
+    }
 }
