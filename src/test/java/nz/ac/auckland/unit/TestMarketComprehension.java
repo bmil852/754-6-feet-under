@@ -17,13 +17,15 @@ public class TestMarketComprehension {
     List<Document> documents;
     APICommunicator apiCommunicator;
     Document d1, d2;
+    Category c1;
 
     @Before
     public void setUp(){
         apiCommunicator = mock(APICommunicator.class);
         documents = new ArrayList<>();
         d1 = new Document("doc1");
-        d1.setCategory(new Category());
+        c1= new Category();
+        d1.setCategory(c1);
         d2 = new Document("doc2");
     }
 
@@ -96,7 +98,11 @@ public class TestMarketComprehension {
     }
 
     private void generate_mock_search_results_with_same_category_after_performing_search(){
-
+        d2.setCategory(c1);
+        documents.add(d1);
+        documents.add(d2);
+        when(apiCommunicator.search(anyList())).thenReturn(documents);
+        _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
     }
 
 }
