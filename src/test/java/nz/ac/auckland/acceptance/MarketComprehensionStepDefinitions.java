@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -35,9 +35,22 @@ public class MarketComprehensionStepDefinitions {
 
     @When("^user performs a search$")
     public void User_performs_a_search() {
-        mock_search_documents_to_be_returned_after_performing_search();
-        _searchEngineAlgorithm.searchAndProcess(keywords);
-        results = _searchEngineAlgorithm.getSearchResults();
+            mock_search_documents_to_be_returned_after_performing_search();
+            _searchEngineAlgorithm.searchAndProcess(keywords);
+            results = _searchEngineAlgorithm.getSearchResults();
+    }
+
+    @When("^the user performs a search$")
+    @Then("^failure is expected as it must return some documents$")
+    public void User_performs_a_different_search() {
+        try {
+            mock_search_when_no_documents_are_returned_after_performing_search();
+            _searchEngineAlgorithm.searchAndProcess(keywords);
+            results = _searchEngineAlgorithm.getSearchResults();
+        }catch(Exception e){
+            assertEquals("search must return a set of documents",true, true);
+        }
+        fail("Should throw an exception");
     }
 
     @Then("^a non-empty set of documents are returned$")
@@ -57,6 +70,8 @@ public class MarketComprehensionStepDefinitions {
         documents.add(d2);
         when(apiCommunicator.search(anyList())).thenReturn(documents);
         _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
+    }
 
+    private void mock_search_when_no_documents_are_returned_after_performing_search(){
     }
 }

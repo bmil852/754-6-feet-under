@@ -8,5 +8,5 @@ The weighted keywords should be used as the input to a traditional search engine
 
 	Scenario: User performs a search for their business idea which does not return any documents
     Given user has a set of weighted keywords to search with
-    When user performs a search
+    When the user performs a search
     Then failure is expected as it must return some documents
