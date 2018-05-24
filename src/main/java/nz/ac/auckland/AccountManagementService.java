@@ -21,8 +21,18 @@ public class AccountManagementService {
     }
 
     public void register(Client client, Role roleType) {
-        if (client.getUsername() != null && client.getPassword() != null) {
-            _registered.get(roleType).add(client);
+        try {
+            for (Client c : _registered.get(roleType)) {
+                if (c.getUsername().equals(client.getUsername())) {
+                    throw new RuntimeException();
+                }
+            }
+
+            if (client.getUsername() != null && client.getPassword() != null) {
+                _registered.get(roleType).add(client);
+            }
+        } catch (RuntimeException e){
+            throw new RuntimeException("User/Administrator registry failed - username already exists in system");
         }
     }
 
