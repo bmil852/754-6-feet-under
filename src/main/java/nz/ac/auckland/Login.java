@@ -79,4 +79,10 @@ public class Login {
         }
         return false;
     }
+
+    public List<String> getRegistered(Role roleType) {
+        List<String> returnList = new ArrayList<String>();
+
+        return returnList;
+    }
 }
