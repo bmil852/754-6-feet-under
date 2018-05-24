@@ -163,11 +163,11 @@ public class TestAccountManagement {
     }
 
     @Test
-    public void administrator_obtains_total_number_of_registered_users_when_no_users_are_registered(){
+    public void administrator_obtains_zero_total_number_of_registered_users_when_no_users_are_registered(){
         _accountManagementService = new AccountManagementService();
 
         //Given
-        // An administrator is registered
+        // An administrator is registered and no users are registered
         Client admin = new Client("AdminObtainsRegisteredUserCount1", "AdminObtainsRegisteredUserCountPassword1");
         _accountManagementService.register(admin, Role.ADMINISTRATOR);
         _accountManagementService.signIn("AdminObtainsRegisteredUserCount1", "AdminObtainsRegisteredUserCountPassword1", Role.ADMINISTRATOR);

@@ -81,12 +81,12 @@ public class AccountManagementService {
     }
 
     public int getNumberOfRegisteredUsers(Role roleType) {
-        int registeredUsersCount = 0;
+        int numberOfRegisteredUsers = 0;
         if(roleType.equals(Role.ADMINISTRATOR)) {
             for (int i=0; i<_registered.get(Role.USER).size(); i++) {
-                registeredUsersCount++;
+                numberOfRegisteredUsers++;
             }
         }
-        return registeredUsersCount;
+        return numberOfRegisteredUsers;
     }
 }
