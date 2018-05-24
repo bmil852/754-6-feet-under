@@ -71,6 +71,23 @@ public class TestMarketComprehension {
         fail("Should throw a runtime exception");
     }
 
+
+    @Test
+    public void check_if_concise_and_informative_label_for_category_is_formed(){
+        //Given
+        List<Documents> documents = searchAndProcess(new ArrayList<Keyword>());
+
+        //When
+        for(Document d : documents){
+            Category c = d.getCategory();
+            for(Keyword k : d.getKeywords){
+                c.label += k._word+" ";
+            }
+        }
+
+        //Then
+    }
+
     private void generate_mock_search_results_after_performing_search(){
         d2.setCategory(c2);
         when(apiCommunicator.search(anyList())).thenReturn(documents);
