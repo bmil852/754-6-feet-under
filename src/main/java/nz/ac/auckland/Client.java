@@ -26,4 +26,8 @@ public class Client {
     public int getCurrentSessionSearchCount(){
         return _userCurrentSessionSearchCount;
     }
+
+    public void clearCurrentSessionSearchCount(){
+        _userCurrentSessionSearchCount =0;
+    }
 }

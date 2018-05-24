@@ -37,6 +37,7 @@ public class Login {
     public void signOut(Client client, Role roleType) {
         for (Client c : _active.get(roleType)) {
             if (c.getUsername().equals(client.getUsername()) && c.getPassword().equals(client.getPassword())) {
+                c.clearCurrentSessionSearchCount();
                 _active.get(roleType).remove(c);
                 break;
             }
