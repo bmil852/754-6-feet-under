@@ -46,6 +46,25 @@ public class TestMarketComprehension {
         }
     }
 
+    @Test
+    public void check_if_documents_are_clustered_by_the_same_category(){
+        boolean hasCategory = true;
+        //Given
+        generate_mock_search_results_with_same_category_after_performing_search();
+        _searchEngineAlgorithm.searchAndProcess(new ArrayList<Keyword>());
+        List<Document> documents = _searchEngineAlgorithm.getSearchResults();
+
+        //When
+        for(Document d : documents){
+            if(d.getCategory() == null){
+
+                //Then
+                assertFalse(hasCategory);
+
+            }
+        }
+    }
+
     @Test(expected = RuntimeException.class)
     public void fails_when_a_returned_document_is_not_clustered_by_a_category(){
         //Given
