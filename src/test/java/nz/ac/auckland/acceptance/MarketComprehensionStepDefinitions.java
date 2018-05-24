@@ -48,8 +48,8 @@ public class MarketComprehensionStepDefinitions {
             _searchEngineAlgorithm.searchAndProcess(keywords);
             results = _searchEngineAlgorithm.getSearchResults();
             fail("Should throw a runtime exception");
-        }catch(Exception e){
-            assertEquals("search must return a set of documents",true, true);
+        }catch(RuntimeException e){
+            assertEquals("Search must return a set of documents",e.getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ public class MarketComprehensionStepDefinitions {
         for(Object d : results) {
             assertThat(d instanceof Document, equalTo(true));
         }
-        assertThat(results.size() > 0, equalTo(true));
+        assertThat(results.size() > 1, equalTo(true));
     }
 
     private void mock_search_documents_to_be_returned_after_performing_search(){
