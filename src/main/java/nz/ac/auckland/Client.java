@@ -4,6 +4,7 @@ public class Client {
     private String _username;
     private String _password;
     private int _userCurrentSessionSearchCount;
+    public int _totalSearchCount =0;
 
     public Client(String username, String password) {
         _username = username;
