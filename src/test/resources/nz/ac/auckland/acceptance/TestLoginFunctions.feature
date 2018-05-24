@@ -20,3 +20,13 @@ Feature: Account Management - Login Functions
 		Given a new Administrator wants to sign up to the system
 		When the Administrator provides invalid details for signing up
 		Then the Administrator is not successfully registered with the system
+
+    Scenario: A User signs out of the system
+        Given a User is already signed into the system
+        When the User signs out of the system
+        Then the User is no longer signed in to the system
+
+    Scenario: An Administrator signs out of the system
+        Given an Administrator is already signed into the system
+        When the Administrator signs out of the system
+        Then the Administrator is no longer signed in to the system
