@@ -3,7 +3,13 @@ package nz.ac.auckland;
 import java.util.List;
 
 public class Search {
-    public List<Object> searchAndProcess(List<Keyword> keywords){
-        return null;
+    APICommunicator _apiCommunicator;
+
+    public Search(APICommunicator apiCommunicator){
+        _apiCommunicator = apiCommunicator;
+    }
+
+    public List<Document> searchAndProcess(List<Keyword> keywords){
+        return _apiCommunicator.search(keywords);
     }
 }
