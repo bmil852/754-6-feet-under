@@ -8,6 +8,7 @@ import nz.ac.auckland.Login;
 import nz.ac.auckland.Role;
 
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 
@@ -38,16 +39,23 @@ public class AccountManagementStepDefs {
 
     @Given("^(a User|an Administrator) is already signed into the system$")
     public void a_User_or_Administrator_is_already_signed_into_the_system(String clientType) {
-
+        _login = new Login();
+        Role roleType = (clientType.contains("User")) ? Role.USER : Role.ADMINISTRATOR;
+        Client client = new Client("UserTest1", "UserTestPass1");
+        _login.register(client, roleType);
+        _login.signIn("UserTest1", "UserTestPass1", roleType);
     }
 
     @When("^the (User|Administrator) signs out of the system$")
     public void the_User_or_Administrator_signs_out_of_the_system(String clientType) {
-
+        Role roleType = (clientType.contains("User")) ? Role.USER : Role.ADMINISTRATOR;
+        Client client = new Client("UserTest1", "UserTestPass1");
+        _login.signOut(client, roleType);
     }
 
     @Then("^the (User|Administrator) is no longer signed in to the system$")
     public void the_User_or_Administrator_is_no_longer_signed_in_to_the_system(String clientType) {
-
+        Role roleType = (clientType.contains("User")) ? Role.USER : Role.ADMINISTRATOR;
+        assertFalse(_login.getActive(roleType).contains("UserTest1"));
     }
 }
