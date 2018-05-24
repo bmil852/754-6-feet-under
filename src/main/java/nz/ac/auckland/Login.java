@@ -35,25 +35,19 @@ public class Login {
     }
 
     public void signOut(Client client, Role roleType) {
-        Client removeClient = null;
         for (Client c : _active.get(roleType)) {
             if (c.getUsername().equals(client.getUsername()) && c.getPassword().equals(client.getPassword())) {
-                removeClient = c;
+                _active.get(roleType).remove(c);
                 break;
             }
-        }
-        if (removeClient != null) {
-            _active.get(roleType).remove(removeClient);
         }
     }
 
     public boolean checkClientSignedIn(Client client, Role roleType){
-        boolean isSignedIn = false;
         try {
             for (Client c : _active.get(roleType)) {
                 if (c.getUsername().equals(client.getUsername()) && c.getPassword().equals(client.getPassword())) {
-                    isSignedIn = true;
-                    return isSignedIn;
+                    return true;
                 }
             }
         throw new RuntimeException();
@@ -64,25 +58,24 @@ public class Login {
                 throw new RuntimeException(Role.ADMINISTRATOR.exceptionMessage);
             }
         }
-        return isSignedIn;
+        return false;
     }
 
     public boolean checkClientRegistered(String username, String password, Role roleType) {
-        boolean isRegistered = false;
         for (Client client : _registered.get(roleType)) {
             if(client.getUsername() == username && client.getPassword() == password){
-                isRegistered = true;
-                return isRegistered;
+                return true;
             }
         }
-        return isRegistered;
+        return false;
     }
 
-    public List<String> getActive(Role roleType) {
-        List<String> returnList = new ArrayList<String>();
+    public boolean checkClientActive(String username, String password, Role roleType) {
         for (Client client : _active.get(roleType)) {
-            returnList.add(client.getUsername());
+            if(client.getUsername() == username && client.getPassword() == password){
+                return true;
+            }
         }
-        return returnList;
+        return false;
     }
 }

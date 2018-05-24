@@ -56,6 +56,6 @@ public class AccountManagementStepDefs {
     @Then("^the (User|Administrator) is no longer signed in to the system$")
     public void the_User_or_Administrator_is_no_longer_signed_in_to_the_system(String clientType) {
         Role roleType = (clientType.contains("User")) ? Role.USER : Role.ADMINISTRATOR;
-        assertFalse(_login.getActive(roleType).contains("UserTest1"));
+        assertFalse(_login.checkClientActive("UserTest1", "UserTestPass1",roleType));
     }
 }
