@@ -28,7 +28,7 @@ public class SearchEngine {
             Set<Category> categories = new HashSet<Category>();
             for (Document d : searchResults) {
                 if (d.getCategory() == null) {
-                    throw new RuntimeException();
+                    throw new RuntimeException("Every document must be clustered into a category");
                 }
                 categories.add(d.getCategory());
             }
