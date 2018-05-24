@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Login {
+public class AccountManagementService {
 
     private Map<Role,List<Client>> _registered;
     private Map<Role,List<Client>> _active;
 
-    public Login() {
+    public AccountManagementService() {
         _registered = new HashMap<Role,List<Client>>();
         _active = new HashMap<Role,List<Client>>();
 
@@ -80,13 +80,13 @@ public class Login {
         return false;
     }
 
-    public List<String> getRegistered(Role roleType) {
-        List<String> returnList = new ArrayList<String>();
+    public int getNumberOfRegisteredUsers(Role roleType) {
+        int registeredUsersCount = 0;
         if(roleType.equals(Role.ADMINISTRATOR)) {
-            for (Client c : _registered.get(Role.USER)) {
-                returnList.add(c.getUsername());
+            for (int i=0; i<_registered.get(Role.USER).size(); i++) {
+                registeredUsersCount++;
             }
         }
-        return returnList;
+        return registeredUsersCount;
     }
 }
