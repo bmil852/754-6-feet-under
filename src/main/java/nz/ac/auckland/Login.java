@@ -35,7 +35,16 @@ public class Login {
     }
 
     public void signOut(Client client, Role roleType) {
-
+        Client removeClient = null;
+        for (Client c : _active.get(roleType)) {
+            if (c.getUsername().equals(client.getUsername()) && c.getPassword().equals(client.getPassword())) {
+                removeClient = c;
+                break;
+            }
+        }
+        if (removeClient != null) {
+            _active.get(roleType).remove(removeClient);
+        }
     }
 
     public boolean checkClientSignedIn(Client client, Role roleType){
@@ -71,7 +80,9 @@ public class Login {
 
     public List<String> getActive(Role roleType) {
         List<String> returnList = new ArrayList<String>();
-
+        for (Client client : _active.get(roleType)) {
+            returnList.add(client.getUsername());
+        }
         return returnList;
     }
 }
