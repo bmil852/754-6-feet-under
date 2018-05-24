@@ -71,6 +71,23 @@ public class TestAccountManagement {
         fail(Role.ADMINISTRATOR.exceptionMessage);
     }
 
+    @Test(expected=RuntimeException.class)
+    public void when_client_wants_to_sign_up_with_existing_username() {
+        _accountManagementService = new AccountManagementService();
+
+        //Given
+        Client clientOne = new Client("UserExists1", "UserExistsPassword1");
+        _accountManagementService.register(clientOne, Role.USER);
+
+        //When
+        // A new client wants to register with the same username
+        Client clientTwo = new Client("UserExists1", "UserExistsPassword2");
+        _accountManagementService.register(clientTwo, Role.USER);
+
+        //Then
+        fail("User/Administrator registry failed - username already exists in system");
+    }
+
     @Test
     public void search_count_for_user_in_current_session(){
         //Given
