@@ -95,4 +95,8 @@ public class TestMarketComprehension {
         _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
     }
 
+    private void generate_mock_search_results_with_same_category_after_performing_search(){
+
+    }
+
 }
