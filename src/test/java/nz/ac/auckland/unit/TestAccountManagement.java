@@ -5,6 +5,9 @@ import nz.ac.auckland.Login;
 import nz.ac.auckland.Role;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.List;
+
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 
@@ -135,5 +138,30 @@ public class TestAccountManagement {
 
         //Then
         assertEquals(10,client.getTotalSearchCount());
+    }
+
+
+    @Test
+    public void administrator_obtains_total_number_of_registered_users(){
+        _login = new Login();
+
+        //Given
+        // An administrator is registered
+        Client admin = new Client("AdminObtainsRegisteredUserCount1", "AdminObtainsRegisteredUserCountPassword1");
+        _login.register(admin, Role.ADMINISTRATOR);
+        _login.signIn("AdminObtainsRegisteredUserCount1", "AdminObtainsRegisteredUserCountPassword1", Role.ADMINISTRATOR);
+
+        // And a number of users are registered
+        for(int i =0; i<5; i++) {
+            Client user = new Client("RegisteredUser" + i, "RegisteredUserPassword" + i);
+            _login.register(user, Role.USER);
+        }
+
+        //When
+        // Administrator wants to get number of registered users
+        List<String> registeredList = _login.getRegistered(Role.ADMINISTRATOR);
+
+        //Then
+        assertEquals(5,registeredList.size());
     }
 }
