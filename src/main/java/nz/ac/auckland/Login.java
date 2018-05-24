@@ -54,11 +54,14 @@ public class Login {
         return isSignedIn;
     }
 
-    public List<String> getRegistered(Role roleType) {
-        List<String> returnList  = new ArrayList<String>();
+    public boolean checkClientRegistered(String username, String password, Role roleType) {
+        boolean isRegistered = false;
         for (Client client : _registered.get(roleType)) {
-            returnList .add(client.getUsername());
+            if(client.getUsername() == username && client.getPassword() == password){
+                isRegistered = true;
+                return isRegistered;
+            }
         }
-        return returnList ;
+        return isRegistered;
     }
 }

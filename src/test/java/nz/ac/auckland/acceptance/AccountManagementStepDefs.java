@@ -29,14 +29,10 @@ public class AccountManagementStepDefs {
         _login.register(client, roleType);
     }
 
-    @Then("^the (User|Administrator) (is|is not) succesfully registered with the system$")
-    public void the_User_or_Administrator_is_or_is_not_succesfully_registered_with_the_system(String clientType, String success) {
+    @Then("^the (User|Administrator) (is|is not) successfully registered with the system$")
+    public void the_User_or_Administrator_is_or_is_not_successfully_registered_with_the_system(String clientType, String success) {
         boolean registered = (success.equals("is"));
         Role roleType = (clientType.equals("User")) ? Role.USER : Role.ADMINISTRATOR;
-        assertThat(_login.getRegistered(roleType).contains("JohnSmith1"), equalTo(registered));
+        assertThat(_login.checkClientRegistered("JohnSmith1","pass1", roleType), equalTo(registered));
     }
-
-
-
-
 }
