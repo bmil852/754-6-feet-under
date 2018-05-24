@@ -34,6 +34,10 @@ public class Login {
         }
     }
 
+    public void signOut(Client client, Role roleType) {
+
+    }
+
     public boolean checkClientSignedIn(Client client, Role roleType){
         boolean isSignedIn = false;
         try {
@@ -63,5 +67,11 @@ public class Login {
             }
         }
         return isRegistered;
+    }
+
+    public List<String> getActive(Role roleType) {
+        List<String> returnList = new ArrayList<String>();
+
+        return returnList;
     }
 }
