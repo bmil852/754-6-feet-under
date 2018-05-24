@@ -1,6 +1,8 @@
 package nz.ac.auckland;
 
 public class Document {
-    public Document(String s) {
+    private String text;
+    public Document(String text) {
+        this.text = text;
     }
 }

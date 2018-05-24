@@ -2,7 +2,14 @@ package nz.ac.auckland;
 
 
 public class Keyword {
-    public void setWeight(int weight){
+    int weight;
+    String word;
 
+    public Keyword(String word){
+        this.word = word;
+    }
+
+    public void setWeight(int weight){
+        this.weight = weight;
     }
 }
