@@ -5,7 +5,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -32,21 +34,15 @@ public class TestMarketComprehension {
         }
     }
 
-    @Test(expected = (Exception.class))
+    @Test(expected =RuntimeException.class)
     public void fails_when_a_returned_document_is_not_clustered_by_a_category(){
         //Given
         generate_mock_search_results_with_missing_category_after_performing_search();
         _searchEngineAlgorithm.searchAndProcess(new ArrayList<Keyword>());
-        List<Document> documents = _searchEngineAlgorithm.getSearchResults();
+         _searchEngineAlgorithm.getSearchResults();
 
         //When
-        try {
-            for (Document d : documents) {
-                d.getCategory();
-            }
-        }catch (Exception e){
-            assertEquals("search document must have a category",e.getMessage());
-        }
+        _searchEngineAlgorithm.getResultCategories();
 
         //Then
         fail("should throw an exception");
@@ -59,6 +55,18 @@ public class TestMarketComprehension {
         d1.setCategory(new Category());
         Document d2 = new Document("doc2");
         d2.setCategory(new Category());
+        documents.add(d1);
+        documents.add(d2);
+        when(apiCommunicator.search(anyList())).thenReturn(documents);
+        _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
+    }
+
+    private void generate_mock_search_results_with_missing_category_after_performing_search(){
+        APICommunicator apiCommunicator = mock(APICommunicator.class);
+        List<Document> documents = new ArrayList<>();
+        Document d1 = new Document("doc1");
+        d1.setCategory(new Category());
+        Document d2 = new Document("doc2");
         documents.add(d1);
         documents.add(d2);
         when(apiCommunicator.search(anyList())).thenReturn(documents);

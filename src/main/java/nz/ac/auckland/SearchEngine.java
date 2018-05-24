@@ -1,6 +1,8 @@
 package nz.ac.auckland;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SearchEngine {
     private APICommunicator apiCommunicator;
@@ -20,5 +22,16 @@ public class SearchEngine {
 
     public List<Document> getSearchResults() {
         return searchResults;
+    }
+
+    public Set<Category> getResultCategories() {
+            Set<Category> categories = new HashSet<Category>();
+            for (Document d : searchResults) {
+                if (d.getCategory() == null) {
+                    throw new RuntimeException();
+                }
+                categories.add(d.getCategory());
+            }
+            return categories;
     }
 }
