@@ -78,4 +78,23 @@ public class MarketComprehensionStepDefinitions {
         when(apiCommunicator.search(anyList())).thenReturn(documents);
         _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
     }
+
+
+    @Test
+    public void check_if_documents_are_clustered_by_categories(){
+        boolean hasCategory = true;
+        //Given
+        List<Document> documents = searchAndProcess(new ArrayList<Keyword>());
+
+        //When
+        for(Document d : documents){
+            if(d.getCategory == null){
+                hasCategory = false;
+                break;
+            }
+        }
+
+        //Then
+        assertEquals(hasCategory, true);
+    }
 }
