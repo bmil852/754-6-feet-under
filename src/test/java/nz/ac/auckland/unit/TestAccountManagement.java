@@ -134,6 +134,6 @@ public class TestAccountManagement {
         }
 
         //Then
-        assertEquals(10,client._totalSearchCount);
+        assertEquals(10,client.getTotalSearchCount());
     }
 }

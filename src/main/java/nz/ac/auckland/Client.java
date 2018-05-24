@@ -3,13 +3,14 @@ package nz.ac.auckland;
 public class Client {
     private String _username;
     private String _password;
-    private int _userCurrentSessionSearchCount;
-    public int _totalSearchCount =0;
+    private int _currentSessionSearchCount;
+    private int _totalSearchCount;
 
     public Client(String username, String password) {
         _username = username;
         _password = password;
-        _userCurrentSessionSearchCount =0;
+        _currentSessionSearchCount =0;
+        _totalSearchCount =0;
     }
 
     public String getUsername() {
@@ -21,15 +22,19 @@ public class Client {
     }
 
     public void performSearch(){
-        _userCurrentSessionSearchCount++;
+        _currentSessionSearchCount++;
         _totalSearchCount++;
     }
 
     public int getCurrentSessionSearchCount(){
-        return _userCurrentSessionSearchCount;
+        return _currentSessionSearchCount;
+    }
+
+    public int getTotalSearchCount(){
+        return _totalSearchCount;
     }
 
     public void clearCurrentSessionSearchCount(){
-        _userCurrentSessionSearchCount =0;
+        _currentSessionSearchCount =0;
     }
 }
