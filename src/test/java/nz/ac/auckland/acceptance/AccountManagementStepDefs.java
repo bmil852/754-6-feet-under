@@ -35,4 +35,19 @@ public class AccountManagementStepDefs {
         Role roleType = (clientType.equals("User")) ? Role.USER : Role.ADMINISTRATOR;
         assertThat(_login.checkClientRegistered("JohnSmith1","pass1", roleType), equalTo(registered));
     }
+
+    @Given("^(a User|an Administrator) is already signed into the system$")
+    public void a_User_or_Administrator_is_already_signed_into_the_system(String clientType) {
+
+    }
+
+    @When("^the (User|Administrator) signs out of the system$")
+    public void the_User_or_Administrator_signs_out_of_the_system(String clientType) {
+
+    }
+
+    @Then("^the (User|Administrator) is no longer signed in to the system$")
+    public void the_User_or_Administrator_is_no_longer_signed_in_to_the_system(String clientType) {
+
+    }
 }
