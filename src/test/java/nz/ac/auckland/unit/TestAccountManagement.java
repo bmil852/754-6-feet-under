@@ -107,4 +107,33 @@ public class TestAccountManagement {
         //Then
         assertEquals(0,client.getCurrentSessionSearchCount());
     }
+
+    @Test
+    public void total_search_count_for_user(){
+
+        //Given
+        Client client = new Client("UserTotalSearchCount1", "UserTotalSearchCountPassword1");
+        _login = new Login();
+        _login.register(client, Role.USER);
+        _login.signIn("UserTotalSearchCount1", "UserTotalSearchCountPassword1", Role.USER);
+
+        //And client carries out some searches while signed in
+        for (int i = 0; i < 6; i++) {
+            client.performSearch();
+        }
+        // Client signs out
+        _login.signOut(client, Role.USER);
+
+        //When
+        // Client signs back in
+        _login.signIn("UserTotalSearchCount1", "UserTotalSearchCountPassword1", Role.USER);
+
+        // And carries out more searches
+        for (int i = 0; i < 4; i++) {
+            client.performSearch();
+        }
+
+        //Then
+        assertEquals(10,client._totalSearchCount);
+    }
 }
