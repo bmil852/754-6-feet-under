@@ -10,3 +10,13 @@ Feature: Account Management - Login Functions
 		Given a new Administrator wants to sign up to the system
 		When the Administrator provides valid details for signing up
 		Then the Administrator is succesfully registered with the system
+
+	Scenario: A User signs up to the system with invalid details
+		Given a new User wants to sign up to the system
+		When the User provides invalid details for signing up
+		Then the User is not succesfully registered with the system
+
+	Scenario: An Administrator signs up to the system with invalid details
+		Given a new Administrator wants to sign up to the system
+		When the Administrator provides invalid details for signing up
+		Then the Administrator is not succesfully registered with the system
