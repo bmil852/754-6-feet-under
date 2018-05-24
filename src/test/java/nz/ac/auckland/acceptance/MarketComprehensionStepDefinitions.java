@@ -7,8 +7,6 @@ import nz.ac.auckland.APICommunicator;
 import nz.ac.auckland.Document;
 import nz.ac.auckland.Keyword;
 import nz.ac.auckland.SearchEngine;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +34,7 @@ public class MarketComprehensionStepDefinitions {
 
     @When("^user performs a search$")
     public void User_performs_a_search() {
-            mock_search_documents_to_be_returned_after_performing_search();
+        generate_mock_search_documents_to_be_returned_after_performing_search();
             _searchEngineAlgorithm.searchAndProcess(keywords);
             results = _searchEngineAlgorithm.getSearchResults();
     }
@@ -45,7 +43,7 @@ public class MarketComprehensionStepDefinitions {
     @Then("^failure is expected as it must return some documents$")
     public void User_performs_a_different_search() {
         try {
-            mock_search_when_no_documents_are_returned_after_performing_search();
+            generate_mock_search_when_no_documents_are_returned_after_performing_search();
             _searchEngineAlgorithm.searchAndProcess(keywords);
             results = _searchEngineAlgorithm.getSearchResults();
             fail("Should throw a runtime exception");
@@ -62,7 +60,7 @@ public class MarketComprehensionStepDefinitions {
         assertThat(results.size() > 1, equalTo(true));
     }
 
-    public void mock_search_documents_to_be_returned_after_performing_search(){
+    public void generate_mock_search_documents_to_be_returned_after_performing_search(){
         APICommunicator apiCommunicator = mock(APICommunicator.class);
         List<Document> documents = new ArrayList<>();
         Document d1 = new Document("First mock text for a document object");
@@ -73,7 +71,7 @@ public class MarketComprehensionStepDefinitions {
         _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
     }
 
-    private void mock_search_when_no_documents_are_returned_after_performing_search(){
+    private void generate_mock_search_when_no_documents_are_returned_after_performing_search(){
         APICommunicator apiCommunicator = mock(APICommunicator.class);
         List<Document> documents = new ArrayList<>();
         when(apiCommunicator.search(anyList())).thenReturn(documents);
