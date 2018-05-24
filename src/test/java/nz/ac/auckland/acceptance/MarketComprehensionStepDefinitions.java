@@ -7,6 +7,7 @@ import nz.ac.auckland.APICommunicator;
 import nz.ac.auckland.Document;
 import nz.ac.auckland.Keyword;
 import nz.ac.auckland.SearchEngine;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class MarketComprehensionStepDefinitions {
         assertThat(results.size() > 1, equalTo(true));
     }
 
-    private void mock_search_documents_to_be_returned_after_performing_search(){
+    public void mock_search_documents_to_be_returned_after_performing_search(){
         APICommunicator apiCommunicator = mock(APICommunicator.class);
         List<Document> documents = new ArrayList<>();
         Document d1 = new Document("First mock text for a document object");
@@ -77,24 +78,5 @@ public class MarketComprehensionStepDefinitions {
         List<Document> documents = new ArrayList<>();
         when(apiCommunicator.search(anyList())).thenReturn(documents);
         _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
-    }
-
-
-    @Test
-    public void check_if_documents_are_clustered_by_categories(){
-        boolean hasCategory = true;
-        //Given
-        List<Document> documents = searchAndProcess(new ArrayList<Keyword>());
-
-        //When
-        for(Document d : documents){
-            if(d.getCategory == null){
-                hasCategory = false;
-                break;
-            }
-        }
-
-        //Then
-        assertEquals(hasCategory, true);
     }
 }
