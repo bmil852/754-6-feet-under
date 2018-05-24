@@ -47,10 +47,10 @@ public class MarketComprehensionStepDefinitions {
             mock_search_when_no_documents_are_returned_after_performing_search();
             _searchEngineAlgorithm.searchAndProcess(keywords);
             results = _searchEngineAlgorithm.getSearchResults();
+            fail("Should throw a runtime exception");
         }catch(Exception e){
             assertEquals("search must return a set of documents",true, true);
         }
-        fail("Should throw an exception");
     }
 
     @Then("^a non-empty set of documents are returned$")
@@ -73,5 +73,9 @@ public class MarketComprehensionStepDefinitions {
     }
 
     private void mock_search_when_no_documents_are_returned_after_performing_search(){
+        APICommunicator apiCommunicator = mock(APICommunicator.class);
+        List<Document> documents = new ArrayList<>();
+        when(apiCommunicator.search(anyList())).thenReturn(documents);
+        _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
     }
 }
