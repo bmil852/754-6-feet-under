@@ -16,4 +16,12 @@ public class Client {
     public String getPassword() {
         return _password;
     }
+
+    public void performSearch(){
+
+    }
+
+    public int getCurrentSessionSearchCount(){
+        return 0;
+    }
 }
