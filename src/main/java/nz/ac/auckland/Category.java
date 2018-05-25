@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
+    public Label categoryLabel;
     private String _categoryName;
     private List<Document> _documents;
     private double _popularity;
     private double _relevance = -1.0;
 
     public Category(String categoryName) {
+        categoryLabel = new Label();
         _categoryName = categoryName;
         _documents = new ArrayList<Document>();
     }
