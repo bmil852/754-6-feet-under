@@ -3,14 +3,13 @@ package nz.ac.auckland.acceptance;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import nz.ac.auckland.APICommunicator;
-import nz.ac.auckland.Document;
-import nz.ac.auckland.Keyword;
-import nz.ac.auckland.SearchEngine;
+import nz.ac.auckland.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
@@ -62,7 +61,9 @@ public class MarketComprehensionStepDefinitions {
 
     @Then("^each category in the search results will have an associated summary$")
     public void each_category_in_the_search_results_will_have_an_associated_summary() {
-        
+        for (Category c : _searchEngineAlgorithm.getResultCategories()) {
+            assertThat(c.getSummary(), not(equalTo(null)));
+        }
     }
 
     public void generate_mock_search_documents_to_be_returned_after_performing_search(){
@@ -73,6 +74,7 @@ public class MarketComprehensionStepDefinitions {
         documents.add(d1);
         documents.add(d2);
         when(apiCommunicator.search(anyList())).thenReturn(documents);
+        when(apiCommunicator.summarizeCategory(anyList())).thenReturn("Mock summary for a category of documents");
         _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
     }
 
