@@ -3,8 +3,6 @@ package nz.ac.auckland.unit;
 import nz.ac.auckland.*;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -27,11 +25,23 @@ public class TestMarketComprehension {
     public void setUp(){
         apiCommunicator = mock(APICommunicator.class);
         documents = new ArrayList<>();
+        List<Keyword> keywords1= new ArrayList<>();
+        List<Keyword> keywords2= new ArrayList<>();
+        keyword1 = new Keyword("this");
+        keyword2 = new Keyword("is a");
+        keywords1.add(keyword1);
+        keywords1.add(keyword2);
+        keyword3 = new Keyword("complete");
+        keyword4 = new Keyword("label");
+        keywords2.add(keyword3);
+        keywords2.add(keyword4);
         d1 = new Document("doc1");
+        d2 = new Document("doc2");
+        d1.setKeywords(keywords1);
+        d2.setKeywords(keywords2);
         c1= new Category();
         c2= new Category();
         d1.setCategory(c1);
-        d2 = new Document("doc2");
         documents.add(d1);
         documents.add(d2);
     }
@@ -79,10 +89,6 @@ public class TestMarketComprehension {
     public void check_if_concise_and_informative_label_for_category_is_formed(){
         //Given
         List<Keyword> keywords= new ArrayList<>();
-        keyword1 = new Keyword("this");
-        keyword2 = new Keyword("is a");
-        keyword3 = new Keyword("complete");
-        keyword4 = new Keyword("label");
         keyword1.setWeight(1);
         keyword2.setWeight(2);
         keyword3.setWeight(3);
@@ -91,20 +97,15 @@ public class TestMarketComprehension {
         keywords.add(keyword2);
         keywords.add(keyword3);
         keywords.add(keyword4);
-        generate_mock_search_results_after_performing_search();
-        _searchEngineAlgorithm.searchAndProcess(keywords);
-        List<Document> documents = _searchEngineAlgorithm.getSearchResults();
+        generate_mock_search_results_with_same_category_after_performing_search();
+        perform_search();
 
         //When
-        for(Document d : documents){
-            Category c = d.getCategory();
-            for(Keyword k : d.getKeywords()){
-                c.label += k.word+" ";
-            }
-        }
+        _searchEngineAlgorithm.labelCategories();
+
 
         //Then
-        assertThat(c1.label.equals("this is a complete label"),equalTo(true));
+        assertEquals(c1.categoryLabel.label, "this is a complete label");
 
     }
 

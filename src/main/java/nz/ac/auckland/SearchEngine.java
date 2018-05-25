@@ -12,6 +12,18 @@ public class SearchEngine {
         this.apiCommunicator = apiCommunicator;
     }
 
+    public void labelCategories(){
+        Set<Category> categories = getResultCategories();
+        for(Category c : categories){
+            for(Document d : c.getDocuments()) {
+                for (Keyword k : d.getKeywords()) {
+                    c.categoryLabel.addKeyword(k);
+                }
+            }
+            c.categoryLabel.formLabel();
+        }
+    }
+
     public void searchAndProcess(List<Keyword> keywords){
         searchResults = apiCommunicator.search(keywords);
         if(searchResults.size() < 2){
@@ -31,6 +43,7 @@ public class SearchEngine {
                     throw new RuntimeException("Every document must be clustered into a category");
                 }
                 categories.add(d.getCategory());
+                d.getCategory().addDocument(d);
             }
             return categories;
     }
