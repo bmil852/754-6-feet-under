@@ -113,4 +113,16 @@ public class TestKeywordExtraction {
 		// When
 		this._keywordService.removeKeyword("");
 	}
+	
+	@Test
+	public void shouldReturnKeywordsForBusinessIdeaInput() {
+		// Given
+		this._keywordService.extractFrom("A dog walking service in Ponsonby");
+		
+		// When
+		List<Keyword> extractedKeywords = this._keywordService.getKeywords();
+		
+		// Then
+		assertTrue(extractedKeywords.size() > 0);
+	}
 }
