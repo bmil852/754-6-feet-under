@@ -3,14 +3,13 @@ package nz.ac.auckland.acceptance;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import nz.ac.auckland.APICommunicator;
-import nz.ac.auckland.Document;
-import nz.ac.auckland.Keyword;
-import nz.ac.auckland.SearchEngine;
+import nz.ac.auckland.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
@@ -39,6 +38,13 @@ public class MarketComprehensionStepDefinitions {
             results = _searchEngineAlgorithm.getSearchResults();
     }
 
+    @When("^A user performs a search$")
+    public void User_performs_a_search_that_generates_three_search_results() {
+        generate_mock_summary_for_categories_of_returned_documents_after_performing_search();
+        _searchEngineAlgorithm.searchAndProcess(keywords);
+        results = _searchEngineAlgorithm.getSearchResults();
+    }
+
     @When("^the user performs a search$")
     @Then("^failure is expected as it must return some documents$")
     public void User_performs_a_different_search() {
@@ -60,14 +66,29 @@ public class MarketComprehensionStepDefinitions {
         assertThat(results.size() > 1, equalTo(true));
     }
 
+    @Then("^each category in the search results will have (an associated|the correct) summary$")
+    public void each_category_in_the_search_results_will_have_an_associated_summary(String summaryNature) {
+        _searchEngineAlgorithm.summarizeResultCategories();
+        for (Category c : _searchEngineAlgorithm.getResultCategories()) {
+            if(summaryNature.contains("associated")) {
+                assertThat(c.getSummary(), not(equalTo(null)));
+            } else if (summaryNature.contains("correct")){
+                assertEquals("Mock summary for a category of documents",c.getSummary());
+            }
+        }
+    }
+
     public void generate_mock_search_documents_to_be_returned_after_performing_search(){
         APICommunicator apiCommunicator = mock(APICommunicator.class);
         List<Document> documents = new ArrayList<>();
         Document d1 = new Document("First mock text for a document object");
         Document d2 = new Document("Second mock text for a document object");
+        d1.setCategory(new Category());
+        d2.setCategory(new Category());
         documents.add(d1);
         documents.add(d2);
         when(apiCommunicator.search(anyList())).thenReturn(documents);
+        when(apiCommunicator.summarizeCategory(anyList())).thenReturn("Mock summary for a category of documents");
         _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
     }
 
@@ -75,6 +96,23 @@ public class MarketComprehensionStepDefinitions {
         APICommunicator apiCommunicator = mock(APICommunicator.class);
         List<Document> documents = new ArrayList<>();
         when(apiCommunicator.search(anyList())).thenReturn(documents);
+        _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
+    }
+
+    public void generate_mock_summary_for_categories_of_returned_documents_after_performing_search(){
+        APICommunicator apiCommunicator = mock(APICommunicator.class);
+        List<Document> documents = new ArrayList<>();
+        Document d1 = new Document("First mock text for a document object");
+        Document d2 = new Document("Second mock text for a document object");
+        Document d3 = new Document("Third mock text for a document object");
+        d1.setCategory(new Category());
+        d2.setCategory(new Category());
+        d3.setCategory(new Category());
+        documents.add(d1);
+        documents.add(d2);
+        documents.add(d3);
+        when(apiCommunicator.search(anyList())).thenReturn(documents);
+        when(apiCommunicator.summarizeCategory(anyList())).thenReturn("Mock summary for a category of documents");
         _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
     }
 }
