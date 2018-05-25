@@ -15,3 +15,8 @@ The weighted keywords should be used as the input to a traditional search engine
 	Given user has a set of weighted keywords to search with
 	When A user performs a search
 	Then each category in the search results will have an associated summary
+
+	Scenario: A user wants a summary of each category in the search results
+	Given user has a set of weighted keywords to search with
+	When A user performs a search
+	Then each category in the search results will have the correct summary
