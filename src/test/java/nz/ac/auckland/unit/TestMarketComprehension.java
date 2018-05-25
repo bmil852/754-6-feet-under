@@ -75,17 +75,21 @@ public class TestMarketComprehension {
     @Test
     public void check_if_concise_and_informative_label_for_category_is_formed(){
         //Given
-        List<Documents> documents = searchAndProcess(new ArrayList<Keyword>());
+
+        _searchEngineAlgorithm.searchAndProcess(new ArrayList<Keyword>());
+        List<Document> documents = _searchEngineAlgorithm.getSearchResults();
 
         //When
         for(Document d : documents){
             Category c = d.getCategory();
-            for(Keyword k : d.getKeywords){
-                c.label += k._word+" ";
+            for(Keyword k : d.getKeywords()){
+                c.label += k.word+" ";
             }
         }
 
         //Then
+        assertThat(c1.label.equals("this is a complete label"),equalTo(true));
+
     }
 
     private void generate_mock_search_results_after_performing_search(){

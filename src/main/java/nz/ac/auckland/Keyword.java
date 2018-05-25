@@ -3,7 +3,7 @@ package nz.ac.auckland;
 
 public class Keyword {
     int weight;
-    String word;
+    public String word;
 
     public Keyword(String word){
         this.word = word;

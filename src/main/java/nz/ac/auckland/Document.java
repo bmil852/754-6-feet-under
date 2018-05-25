@@ -1,8 +1,11 @@
 package nz.ac.auckland;
 
+import java.util.List;
+
 public class Document {
     private String text;
     private Category category;
+    private List<Keyword> keywords;
 
     public void setCategory(Category category) {
         this.category = category;
@@ -14,5 +17,9 @@ public class Document {
 
     public Category getCategory() {
         return category;
+    }
+
+    public List<Keyword> getKeywords() {
+        return keywords;
     }
 }
