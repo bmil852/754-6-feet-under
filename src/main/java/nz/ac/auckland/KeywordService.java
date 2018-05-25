@@ -20,8 +20,11 @@ public class KeywordService {
 	}
 
 	public void removeKeyword(String word) {
-		boolean keywordDoesNotExist = true;
+		if (word.equals("")) {
+			throw new EmptyInputException();
+		}
 		
+		boolean keywordDoesNotExist = true;
 		for (int i = 0; i < this._keywords.size(); i++) {
 			Keyword keyword = this._keywords.get(i);
 			if (keyword.word.equals(word)) {
@@ -30,9 +33,7 @@ public class KeywordService {
 			}
 		}
 		
-		if (word.equals("")) {
-			throw new EmptyInputException();
-		} else if (keywordDoesNotExist) {
+		if (keywordDoesNotExist) {
 			throw new NonExistingKeywordException();
 		}
 	}
