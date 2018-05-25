@@ -17,7 +17,9 @@ public class SearchEngine {
         for(Category c : categories){
             for(Document d : c.getDocuments()) {
                 for (Keyword k : d.getKeywords()) {
-                    c.categoryLabel.addKeyword(k);
+                    if(!c.categoryLabel.getKeywords().contains(k.word)) {
+                        c.categoryLabel.addKeyword(k);
+                    }
                 }
             }
             c.categoryLabel.formLabel();
