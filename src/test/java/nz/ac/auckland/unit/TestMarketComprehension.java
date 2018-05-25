@@ -110,7 +110,7 @@ public class TestMarketComprehension {
 
 
         //Then
-        assertEquals(c1.categoryLabel.label, "this is a complete label");
+        assertEquals(c1.categoryLabel.getLabel(), "this is a complete label");
 
     }
 
@@ -148,7 +148,7 @@ public class TestMarketComprehension {
 
 
         //Then
-        assertEquals(c1.categoryLabel.label, "a complete label");
+        assertEquals(c1.categoryLabel.getLabel(), "a complete label");
 
     }
 
@@ -186,8 +186,8 @@ public class TestMarketComprehension {
 
 
         //Then
-        assertEquals(c1.categoryLabel.label, "a concise");
-        assertEquals(c2.categoryLabel.label, "complete label");
+        assertEquals(c1.categoryLabel.getLabel(), "a concise");
+        assertEquals(c2.categoryLabel.getLabel(), "complete label");
 
     }
 

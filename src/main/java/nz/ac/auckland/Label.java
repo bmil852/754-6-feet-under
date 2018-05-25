@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Label {
-    public String label="";
+    private String label="";
     private List<String> keywords = new ArrayList<String>();
 
     public void formLabel(){
@@ -20,5 +20,9 @@ public class Label {
 
     public boolean checkIfKeywordExists(Keyword k){
         return keywords.contains(k.word);
+    }
+
+    public String getLabel(){
+        return label;
     }
 }
