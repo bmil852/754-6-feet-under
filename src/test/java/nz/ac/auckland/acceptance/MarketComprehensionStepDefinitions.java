@@ -76,7 +76,10 @@ public class MarketComprehensionStepDefinitions {
 
     @Then("^each category in the search results will have the correct summary$")
     public void each_category_in_the_search_results_will_have_the_correct_summary() {
-
+        _searchEngineAlgorithm.summarizeResultCategories();
+        for (Category c : _searchEngineAlgorithm.getResultCategories()) {
+            assertThat(c.getSummary().equals("Mock summary for a category of documents"), not(equalTo(false)));
+        }
     }
 
     public void generate_mock_search_documents_to_be_returned_after_performing_search(){
