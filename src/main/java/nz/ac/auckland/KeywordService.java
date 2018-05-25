@@ -16,7 +16,7 @@ public class KeywordService {
 	}
 
 	public void extractFrom(String businessIdea) {
-		if (businessIdea == "") {
+		if (businessIdea.equals("")) {
 			throw new EmptyInputException();
 		}
 		
