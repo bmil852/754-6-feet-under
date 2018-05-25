@@ -30,8 +30,8 @@ public class TestMarketComprehension {
         keywords2= new ArrayList<>();
         d1 = new Document("doc1");
         d2 = new Document("doc2");
-        c1= new Category();
-        c2= new Category();
+        c1= new Category("category1");
+        c2= new Category("category2");
         d1.setCategory(c1);
         documents.add(d1);
         documents.add(d2);

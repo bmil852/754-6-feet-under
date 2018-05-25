@@ -7,6 +7,11 @@ public class Document {
     private Category category;
     private List<Keyword> keywords;
 
+    public Document(String text, Category category){
+        this.text = text;
+        this.category = category;
+    }
+
     public void setCategory(Category category) {
         this.category = category;
     }
