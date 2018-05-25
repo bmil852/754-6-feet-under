@@ -20,17 +20,17 @@ public class KeywordService {
 	}
 
 	public void removeKeyword(String word) {
-		boolean bool = true;
+		boolean keywordDoesNotExist = true;
 		
 		for (int i = 0; i < this._keywords.size(); i++) {
 			Keyword keyword = this._keywords.get(i);
 			if (keyword.word.equals(word)) {
 				_keywords.remove(keyword);
-				bool = false;
+				keywordDoesNotExist = false;
 			}
 		}
 		
-		if (bool) {
+		if (keywordDoesNotExist) {
 			throw new NonExistingKeywordException();
 		}
 	}
