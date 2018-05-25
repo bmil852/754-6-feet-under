@@ -19,4 +19,8 @@ public class Category {
     public void addDocument(Document d) {
         _documents.add(d);
     }
+
+    public String getSummary() {
+        return "";
+    }
 }
