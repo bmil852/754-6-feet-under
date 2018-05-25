@@ -1,6 +1,11 @@
 package nz.ac.auckland.unit;
 
+import nz.ac.auckland.Keyword;
+import nz.ac.auckland.KeywordService;
+
 import static org.junit.Assert.*;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
