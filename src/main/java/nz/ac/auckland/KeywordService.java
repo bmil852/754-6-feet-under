@@ -38,6 +38,18 @@ public class KeywordService {
 	public void addKeyword(String word) {
 		Keyword keyword = new Keyword(word);
 		_keywords.add(keyword);
+		
+		int count = 0;
+		for (int i = 0; i < _keywords.size(); i++) {
+			keyword = this._keywords.get(i);
+			if (keyword.word.equals(word)) {
+				count++;
+			}
+		}
+		
+		if (count == 2) {
+			throw new AlreadyExistingKeywordException();
+		}
 	}
 
 }
