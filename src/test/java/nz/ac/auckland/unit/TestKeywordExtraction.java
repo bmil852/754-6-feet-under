@@ -66,8 +66,13 @@ public class TestKeywordExtraction {
 		// Then
 		assertTrue(keywordsSizeAfterAddition > originalExtractedKeywordsSize);
 		
-		Keyword keyword = new Keyword("cat");
-		assertTrue(keywordsAfterAddition.contains(keyword));
+		boolean foundAddedKeyword = false;
+		for (Keyword keyword : keywordsAfterAddition) {
+			if (keyword.word.equals("cat")) {
+				foundAddedKeyword = true;
+			}
+		}
+		assertTrue(foundAddedKeyword);
 	}
 
 }
