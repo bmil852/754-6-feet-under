@@ -152,6 +152,44 @@ public class TestMarketComprehension {
 
     }
 
+    @Test
+    public void check_if_labels_for_multiple_categories_are_formed(){
+        //Given
+        List<Keyword> keywords= new ArrayList<>();
+        keyword1 = new Keyword("a");
+        keyword2 = new Keyword("concise");
+        keyword3 = new Keyword("complete");
+        keyword4 = new Keyword("label");
+
+        keyword1.setWeight(1);
+        keyword2.setWeight(2);
+        keyword3.setWeight(3);
+        keyword4.setWeight(4);
+
+        keywords.add(keyword1);
+        keywords.add(keyword2);
+        keywords.add(keyword3);
+        keywords.add(keyword4);
+
+        d1.setKeywords(keywords1);
+        d2.setKeywords(keywords2);
+        keywords1.add(keyword1);
+        keywords1.add(keyword2);
+        keywords2.add(keyword3);
+        keywords2.add(keyword4);
+
+        generate_mock_search_results_after_performing_search();
+        perform_search();
+
+        //When
+        _searchEngineAlgorithm.labelCategories();
+
+
+        //Then
+        assertEquals(c1.categoryLabel.label, "a complete label");
+
+    }
+
     private void generate_mock_search_results_after_performing_search(){
         d2.setCategory(c2);
         when(apiCommunicator.search(anyList())).thenReturn(documents);
