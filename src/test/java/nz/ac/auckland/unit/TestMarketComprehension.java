@@ -186,7 +186,8 @@ public class TestMarketComprehension {
 
 
         //Then
-        assertEquals(c1.categoryLabel.label, "a complete label");
+        assertEquals(c1.categoryLabel.label, "a concise");
+        assertEquals(c2.categoryLabel.label, "complete label");
 
     }
 
