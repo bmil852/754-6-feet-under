@@ -18,7 +18,7 @@ public class Label {
         keywords.add(k.word);
     }
 
-    public List<String> getKeywords(){
-        return keywords;
+    public boolean checkIfKeywordExists(Keyword k){
+        return keywords.contains(k.word);
     }
 }

@@ -2,7 +2,6 @@ package nz.ac.auckland.unit;
 
 import nz.ac.auckland.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
@@ -140,7 +139,7 @@ public class TestMarketComprehension {
         keywords1.add(keyword2);
         keywords2.add(keyword3);
         keywords2.add(keyword4);
-        
+
         generate_mock_search_results_with_same_category_after_performing_search();
         perform_search();
 
