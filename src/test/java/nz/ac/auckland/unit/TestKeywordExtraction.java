@@ -115,7 +115,7 @@ public class TestKeywordExtraction {
 	}
 	
 	@Test
-	public void shouldReturnKeywordsForBusinessIdeaInput() {
+	public void shouldReturnNonEmptyKeywordsForBusinessIdeaInput() {
 		// Given
 		this._keywordService.extractFrom("A dog walking service in Ponsonby");
 		
@@ -124,5 +124,13 @@ public class TestKeywordExtraction {
 		
 		// Then
 		assertTrue(extractedKeywords.size() > 0);
+		
+		boolean foundEmptyKeyword = false;
+		for (Keyword keyword : extractedKeywords) {
+			if (keyword.word.equals("")) {
+				foundEmptyKeyword = true;
+			}
+		}
+		assertFalse(foundEmptyKeyword);
 	}
 }
