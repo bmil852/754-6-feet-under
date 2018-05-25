@@ -33,6 +33,7 @@ public class TestKeywordExtraction {
 		KeywordExtractor _keywordExtractor = mock(KeywordExtractor.class);
 	    when(_keywordExtractor.extractFrom("A dog walking service in Ponsonby")).thenReturn(extractedKeywords);
 	    when(_keywordExtractor.extractFrom("foo")).thenReturn(new ArrayList<Keyword>());
+	    when(_keywordExtractor.extractFrom("")).thenReturn(new ArrayList<Keyword>());
 		
 		this._keywordService = new KeywordService(_keywordExtractor);
 	}
@@ -140,5 +141,11 @@ public class TestKeywordExtraction {
 	public void shouldReturnNoKeywordsForInsufficientBusinessIdeaInput() {
 		// When
 		this._keywordService.extractFrom("foo");
+	}
+	
+	@Test(expected = EmptyInputException.class)
+	public void shouldNotAttemptToExtractKeywordsForEmptyInput() {
+		// When
+		this._keywordService.extractFrom("");
 	}
 }
