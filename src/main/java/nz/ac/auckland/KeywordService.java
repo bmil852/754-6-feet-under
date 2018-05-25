@@ -28,4 +28,8 @@ public class KeywordService {
 		}
 	}
 
+	public void addKeyword(String word) {
+		
+	}
+
 }
