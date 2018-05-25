@@ -2,6 +2,7 @@ package nz.ac.auckland.unit;
 
 import nz.ac.auckland.AlreadyExistingKeywordException;
 import nz.ac.auckland.EmptyInputException;
+import nz.ac.auckland.InsufficientInformationException;
 import nz.ac.auckland.Keyword;
 import nz.ac.auckland.KeywordExtractor;
 import nz.ac.auckland.KeywordService;
@@ -31,6 +32,8 @@ public class TestKeywordExtraction {
 		
 		KeywordExtractor _keywordExtractor = mock(KeywordExtractor.class);
 	    when(_keywordExtractor.extractFrom("A dog walking service in Ponsonby")).thenReturn(extractedKeywords);
+	    when(_keywordExtractor.extractFrom("foo")).thenReturn(new ArrayList<Keyword>());
+	    when(_keywordExtractor.extractFrom("")).thenReturn(new ArrayList<Keyword>());
 		
 		this._keywordService = new KeywordService(_keywordExtractor);
 	}
@@ -112,5 +115,37 @@ public class TestKeywordExtraction {
 		
 		// When
 		this._keywordService.removeKeyword("");
+	}
+	
+	@Test
+	public void shouldReturnNonEmptyKeywordsForBusinessIdeaInput() {
+		// Given
+		this._keywordService.extractFrom("A dog walking service in Ponsonby");
+		
+		// When
+		List<Keyword> extractedKeywords = this._keywordService.getKeywords();
+		
+		// Then
+		assertTrue(extractedKeywords.size() > 0);
+		
+		boolean foundEmptyKeyword = false;
+		for (Keyword keyword : extractedKeywords) {
+			if (keyword.word.equals("")) {
+				foundEmptyKeyword = true;
+			}
+		}
+		assertFalse(foundEmptyKeyword);
+	}
+	
+	@Test(expected = InsufficientInformationException.class)
+	public void shouldReturnNoKeywordsForInsufficientBusinessIdeaInput() {
+		// When
+		this._keywordService.extractFrom("foo");
+	}
+	
+	@Test(expected = EmptyInputException.class)
+	public void shouldNotAttemptToExtractKeywordsForEmptyInput() {
+		// When
+		this._keywordService.extractFrom("");
 	}
 }
