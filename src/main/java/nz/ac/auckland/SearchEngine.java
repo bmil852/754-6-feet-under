@@ -50,13 +50,12 @@ public class SearchEngine {
             return categories;
     }
 
-    public Set<Category> summarizeResultCategories(){
+    public void summarizeResultCategories(){
         Set<Category> categories = getResultCategories();
 
         for(Category c: categories){
-            String summary = apiCommunicator.summarizeCategory(c._documents);
-            c._summary = summary;
+            String summary = apiCommunicator.summarizeCategory(c.getDocuments());
+            c.setSummary(summary);
         }
-        return categories;
     }
 }
