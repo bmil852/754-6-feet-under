@@ -50,5 +50,24 @@ public class TestKeywordExtraction {
 		Keyword keyword = new Keyword("Ponsonby");
 		assertFalse(extractedKeywordsAfterDeletion.contains(keyword));
 	}
+	
+	@Test
+	public void shouldSuccessfullyAddKeywordNotAlreadyPresentInKeywordList() {
+		// Given
+		this._keywordService.extractFrom("A dog walking service in Ponsonby");
+		List<Keyword> originalExtractedKeywords = this._keywordService.getKeywords();
+		int originalExtractedKeywordsSize = originalExtractedKeywords.size();
+		
+		// When
+		this._keywordService.addKeyword("cat");
+		List<Keyword> keywordsAfterAddition = this._keywordService.getKeywords();
+		int keywordsSizeAfterAddition = keywordsAfterAddition.size();
+		
+		// Then
+		assertTrue(keywordsSizeAfterAddition > originalExtractedKeywordsSize);
+		
+		Keyword keyword = new Keyword("cat");
+		assertTrue(keywordsAfterAddition.contains(keyword));
+	}
 
 }
