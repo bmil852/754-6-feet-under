@@ -3,6 +3,7 @@ package nz.ac.auckland.unit;
 import nz.ac.auckland.Keyword;
 import nz.ac.auckland.KeywordExtractor;
 import nz.ac.auckland.KeywordService;
+import nz.ac.auckland.NonExistingKeywordException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
