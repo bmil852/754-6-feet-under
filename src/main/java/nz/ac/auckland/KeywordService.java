@@ -29,7 +29,7 @@ public class KeywordService {
 	}
 
 	public void addKeyword(String word) {
-		Keyword keyword = new Keyword("cat");
+		Keyword keyword = new Keyword(word);
 		_keywords.add(keyword);
 	}
 
