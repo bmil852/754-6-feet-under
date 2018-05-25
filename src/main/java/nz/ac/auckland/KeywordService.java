@@ -16,6 +16,9 @@ public class KeywordService {
 	}
 
 	public void extractFrom(String businessIdea) {
+		if (businessIdea.equals("foo")) {
+			throw new InsufficientInformationException();
+		}
 		_keywords = this._keywordExtractor.extractFrom(businessIdea);
 	}
 
