@@ -36,6 +36,10 @@ public class KeywordService {
 	}
 
 	public void addKeyword(String word) {
+		if (word.equals("")) {
+			throw new EmptyInputException();
+		}
+		
 		for (int i = 0; i < this._keywords.size(); i++) {
 			Keyword keyword = this._keywords.get(i);
 			if (keyword.word.equals(word)) {
@@ -45,13 +49,6 @@ public class KeywordService {
 		
 		Keyword keyword = new Keyword(word);
 		_keywords.add(keyword);
-		
-		for (int i = 0; i < this._keywords.size(); i++) {
-			keyword = this._keywords.get(i);
-			if (keyword.word.equals("")) {
-				throw new EmptyInputException();
-			}
-		}
 	}
 
 }
