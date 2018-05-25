@@ -75,4 +75,12 @@ public class TestKeywordExtraction {
 		assertTrue(foundAddedKeyword);
 	}
 
+	@Test(expected = NonExistingKeywordException.class)
+	public void shouldNotAllowRemovalOfNonExistingKeyword() {
+		// Given
+		this._keywordService.extractFrom("A dog walking service in Ponsonby");
+		
+		// When
+		this._keywordService.removeKeyword("cat");
+	}
 }
