@@ -31,8 +31,6 @@ public class TestMarketComprehension {
         keywords2= new ArrayList<>();
         d1 = new Document("doc1");
         d2 = new Document("doc2");
-        d1.setKeywords(keywords1);
-        d2.setKeywords(keywords2);
         c1= new Category();
         c2= new Category();
         d1.setCategory(c1);
@@ -87,10 +85,6 @@ public class TestMarketComprehension {
         keyword2 = new Keyword("is a");
         keyword3 = new Keyword("complete");
         keyword4 = new Keyword("label");
-        keywords1.add(keyword1);
-        keywords1.add(keyword2);
-        keywords2.add(keyword3);
-        keywords2.add(keyword4);
 
         keyword1.setWeight(1);
         keyword2.setWeight(2);
@@ -101,6 +95,14 @@ public class TestMarketComprehension {
         keywords.add(keyword2);
         keywords.add(keyword3);
         keywords.add(keyword4);
+
+        d1.setKeywords(keywords1);
+        d2.setKeywords(keywords2);
+        keywords1.add(keyword1);
+        keywords1.add(keyword2);
+        keywords2.add(keyword3);
+        keywords2.add(keyword4);
+
         generate_mock_search_results_with_same_category_after_performing_search();
         perform_search();
 
@@ -131,6 +133,13 @@ public class TestMarketComprehension {
         keywords.add(keyword2);
         keywords.add(keyword3);
         keywords.add(keyword4);
+
+        d1.setKeywords(keywords1);
+        d2.setKeywords(keywords2);
+        keywords1.add(keyword1);
+        keywords1.add(keyword2);
+        keywords2.add(keyword3);
+        keywords2.add(keyword4);
         
         generate_mock_search_results_with_same_category_after_performing_search();
         perform_search();
@@ -140,7 +149,7 @@ public class TestMarketComprehension {
 
 
         //Then
-        assertEquals(c1.categoryLabel.label, "this is a complete label");
+        assertEquals(c1.categoryLabel.label, "a complete label");
 
     }
 
