@@ -104,4 +104,13 @@ public class TestKeywordExtraction {
 		// When
 		this._keywordService.addKeyword("");
 	}
+	
+	@Test(expected = EmptyInputException.class)
+	public void shouldNotRemoveEmptyKeywordString() {
+		// Given
+		this._keywordService.extractFrom("A dog walking service in Ponsonby");
+		
+		// When
+		this._keywordService.removeKeyword("");
+	}
 }
