@@ -1,10 +1,15 @@
 package nz.ac.auckland.unit;
 
 import nz.ac.auckland.Keyword;
+import nz.ac.auckland.KeywordExtractor;
 import nz.ac.auckland.KeywordService;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -16,22 +21,34 @@ public class TestKeywordExtraction {
 
 	@Before
 	public void setUp() throws Exception {
-		_keywordService = new KeywordService();
+		List<Keyword> extractedKeywords = new ArrayList<Keyword>();
+		extractedKeywords.add(new Keyword("dog"));
+		extractedKeywords.add(new Keyword("walking"));
+		extractedKeywords.add(new Keyword("Ponsonby"));
+		
+		KeywordExtractor _keywordExtractor = mock(KeywordExtractor.class);
+	    when(_keywordExtractor.extractFrom("A dog walking service in Ponsonby")).thenReturn(extractedKeywords);
+		
+		this._keywordService = new KeywordService(_keywordExtractor);
 	}
 
 	@Test
 	public void shouldSuccessfullyRemoveKeywordPresentInKeywordList() {
 		// Given
-		_keywordService.extractFrom("A dog walking service in Ponsonby");
-		List<Keyword> originalExtractedKeywords = _keywordService.getKeywords();
+		this._keywordService.extractFrom("A dog walking service in Ponsonby");
+		List<Keyword> originalExtractedKeywords = this._keywordService.getKeywords();
+		int originalExtractedKeywordsSize = originalExtractedKeywords.size();
 		
 		// When
-		_keywordService.removeKeyword("Ponsonby");
-		List<Keyword> extractedKeywordsAfterDeletion = _keywordService.getKeywords();
+		this._keywordService.removeKeyword("Ponsonby");
+		List<Keyword> extractedKeywordsAfterDeletion = this._keywordService.getKeywords();
+		int extractedKeywordsSizeAfterDeletion = extractedKeywordsAfterDeletion.size();
 		
 		// Then
-		assertTrue(originalExtractedKeywords.size() > extractedKeywordsAfterDeletion.size());
-		assertFalse(extractedKeywordsAfterDeletion.contains("Ponsonby"));
+		assertTrue(originalExtractedKeywordsSize > extractedKeywordsSizeAfterDeletion);
+		
+		Keyword keyword = new Keyword("Ponsonby");
+		assertFalse(extractedKeywordsAfterDeletion.contains(keyword));
 	}
 
 }

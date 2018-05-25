@@ -1,25 +1,31 @@
 package nz.ac.auckland;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class KeywordService {
 	
 	private List<Keyword> _keywords;
+	private KeywordExtractor _keywordExtractor;
+
+	public KeywordService(KeywordExtractor keywordExtractor) {
+		this._keywordExtractor = keywordExtractor;
+	}
 
 	public List<Keyword> getKeywords() {
 		return _keywords;
 	}
 
 	public void extractFrom(String businessIdea) {
-		Keyword _keyword = new Keyword("foo");
-		
-		_keywords = new ArrayList<Keyword>();
-		_keywords.add(_keyword);
+		_keywords = this._keywordExtractor.extractFrom(businessIdea);
 	}
 
-	public void removeKeyword(String keyword) {
-		_keywords = new ArrayList<Keyword>();
+	public void removeKeyword(String word) {
+		for (int i = 0; i < this._keywords.size(); i++) {
+			Keyword keyword = this._keywords.get(i);
+			if (keyword.word.equals(word)) {
+				_keywords.remove(keyword);
+			}
+		}
 	}
 
 }
