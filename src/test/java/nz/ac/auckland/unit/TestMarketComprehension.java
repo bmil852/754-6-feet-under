@@ -2,6 +2,7 @@ package nz.ac.auckland.unit;
 
 import nz.ac.auckland.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,21 +21,14 @@ public class TestMarketComprehension {
     Document d1, d2;
     Category c1,c2;
     Keyword keyword1, keyword2, keyword3, keyword4;
+    List<Keyword> keywords1, keywords2;
 
     @Before
     public void setUp(){
         apiCommunicator = mock(APICommunicator.class);
         documents = new ArrayList<>();
-        List<Keyword> keywords1= new ArrayList<>();
-        List<Keyword> keywords2= new ArrayList<>();
-        keyword1 = new Keyword("this");
-        keyword2 = new Keyword("is a");
-        keywords1.add(keyword1);
-        keywords1.add(keyword2);
-        keyword3 = new Keyword("complete");
-        keyword4 = new Keyword("label");
-        keywords2.add(keyword3);
-        keywords2.add(keyword4);
+        keywords1= new ArrayList<>();
+        keywords2= new ArrayList<>();
         d1 = new Document("doc1");
         d2 = new Document("doc2");
         d1.setKeywords(keywords1);
@@ -89,14 +83,55 @@ public class TestMarketComprehension {
     public void check_if_concise_and_informative_label_for_category_is_formed(){
         //Given
         List<Keyword> keywords= new ArrayList<>();
+        keyword1 = new Keyword("this");
+        keyword2 = new Keyword("is a");
+        keyword3 = new Keyword("complete");
+        keyword4 = new Keyword("label");
+        keywords1.add(keyword1);
+        keywords1.add(keyword2);
+        keywords2.add(keyword3);
+        keywords2.add(keyword4);
+
         keyword1.setWeight(1);
         keyword2.setWeight(2);
         keyword3.setWeight(3);
         keyword4.setWeight(4);
+
         keywords.add(keyword1);
         keywords.add(keyword2);
         keywords.add(keyword3);
         keywords.add(keyword4);
+        generate_mock_search_results_with_same_category_after_performing_search();
+        perform_search();
+
+        //When
+        _searchEngineAlgorithm.labelCategories();
+
+
+        //Then
+        assertEquals(c1.categoryLabel.label, "this is a complete label");
+
+    }
+
+    @Test
+    public void check_if_label_for_category_is_formed_removing_duplicates(){
+        //Given
+        List<Keyword> keywords= new ArrayList<>();
+        keyword1 = new Keyword("a");
+        keyword2 = new Keyword("complete");
+        keyword3 = new Keyword("complete");
+        keyword4 = new Keyword("label");
+
+        keyword1.setWeight(1);
+        keyword2.setWeight(2);
+        keyword3.setWeight(3);
+        keyword4.setWeight(4);
+
+        keywords.add(keyword1);
+        keywords.add(keyword2);
+        keywords.add(keyword3);
+        keywords.add(keyword4);
+        
         generate_mock_search_results_with_same_category_after_performing_search();
         perform_search();
 
