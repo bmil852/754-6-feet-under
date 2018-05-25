@@ -31,6 +31,7 @@ public class TestKeywordExtraction {
 		
 		KeywordExtractor _keywordExtractor = mock(KeywordExtractor.class);
 	    when(_keywordExtractor.extractFrom("A dog walking service in Ponsonby")).thenReturn(extractedKeywords);
+	    when(_keywordExtractor.extractFrom("foo")).thenReturn(new ArrayList<Keyword>());
 		
 		this._keywordService = new KeywordService(_keywordExtractor);
 	}
@@ -132,5 +133,11 @@ public class TestKeywordExtraction {
 			}
 		}
 		assertFalse(foundEmptyKeyword);
+	}
+	
+	@Test(expected = InsufficientInformationException.class)
+	public void shouldReturnNoKeywordsForInsufficientBusinessIdeaInput() {
+		// When
+		this._keywordService.extractFrom("foo");
 	}
 }
