@@ -16,6 +16,10 @@ public class KeywordService {
 	}
 
 	public void extractFrom(String businessIdea) {
+		if (businessIdea == "") {
+			throw new EmptyInputException();
+		}
+		
 		this._keywords = this._keywordExtractor.extractFrom(businessIdea);
 		
 		boolean noKeywordsExtracted = true;
