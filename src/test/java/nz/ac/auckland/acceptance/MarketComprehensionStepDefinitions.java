@@ -66,19 +66,15 @@ public class MarketComprehensionStepDefinitions {
         assertThat(results.size() > 1, equalTo(true));
     }
 
-    @Then("^each category in the search results will have an associated summary$")
-    public void each_category_in_the_search_results_will_have_an_associated_summary() {
+    @Then("^each category in the search results will have (an associated|the correct) summary$")
+    public void each_category_in_the_search_results_will_have_an_associated_summary(String summaryNature) {
         _searchEngineAlgorithm.summarizeResultCategories();
         for (Category c : _searchEngineAlgorithm.getResultCategories()) {
-            assertThat(c.getSummary(), not(equalTo(null)));
-        }
-    }
-
-    @Then("^each category in the search results will have the correct summary$")
-    public void each_category_in_the_search_results_will_have_the_correct_summary() {
-        _searchEngineAlgorithm.summarizeResultCategories();
-        for (Category c : _searchEngineAlgorithm.getResultCategories()) {
-            assertThat(c.getSummary().equals("Mock summary for a category of documents"), not(equalTo(false)));
+            if(summaryNature.contains("associated")) {
+                assertThat(c.getSummary(), not(equalTo(null)));
+            } else if (summaryNature.contains("correct")){
+                assertEquals("Mock summary for a category of documents",c.getSummary());
+            }
         }
     }
 
