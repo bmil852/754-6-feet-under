@@ -6,6 +6,7 @@ import java.util.List;
 public class Category {
     public Label categoryLabel;
     public List<Document> _documents;
+    public String _summary;
 
     public Category(){
         categoryLabel = new Label();
@@ -21,6 +22,6 @@ public class Category {
     }
 
     public String getSummary() {
-        return "";
+        return _summary;
     }
 }

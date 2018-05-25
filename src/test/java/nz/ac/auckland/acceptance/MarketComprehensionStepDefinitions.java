@@ -38,6 +38,13 @@ public class MarketComprehensionStepDefinitions {
             results = _searchEngineAlgorithm.getSearchResults();
     }
 
+    @When("^A user performs a search$")
+    public void User_performs_a_search_that_generates_three_search_results() {
+        generate_mock_summary_for_categories_of_returned_documents_after_performing_search();
+        _searchEngineAlgorithm.searchAndProcess(keywords);
+        results = _searchEngineAlgorithm.getSearchResults();
+    }
+
     @When("^the user performs a search$")
     @Then("^failure is expected as it must return some documents$")
     public void User_performs_a_different_search() {
@@ -61,7 +68,7 @@ public class MarketComprehensionStepDefinitions {
 
     @Then("^each category in the search results will have an associated summary$")
     public void each_category_in_the_search_results_will_have_an_associated_summary() {
-        for (Category c : _searchEngineAlgorithm.getResultCategories()) {
+        for (Category c : _searchEngineAlgorithm.summarizeResultCategories()) {
             assertThat(c.getSummary(), not(equalTo(null)));
         }
     }
@@ -71,6 +78,8 @@ public class MarketComprehensionStepDefinitions {
         List<Document> documents = new ArrayList<>();
         Document d1 = new Document("First mock text for a document object");
         Document d2 = new Document("Second mock text for a document object");
+        d1.setCategory(new Category());
+        d2.setCategory(new Category());
         documents.add(d1);
         documents.add(d2);
         when(apiCommunicator.search(anyList())).thenReturn(documents);
@@ -82,6 +91,23 @@ public class MarketComprehensionStepDefinitions {
         APICommunicator apiCommunicator = mock(APICommunicator.class);
         List<Document> documents = new ArrayList<>();
         when(apiCommunicator.search(anyList())).thenReturn(documents);
+        _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
+    }
+
+    public void generate_mock_summary_for_categories_of_returned_documents_after_performing_search(){
+        APICommunicator apiCommunicator = mock(APICommunicator.class);
+        List<Document> documents = new ArrayList<>();
+        Document d1 = new Document("First mock text for a document object");
+        Document d2 = new Document("Second mock text for a document object");
+        Document d3 = new Document("Third mock text for a document object");
+        d1.setCategory(new Category());
+        d2.setCategory(new Category());
+        d3.setCategory(new Category());
+        documents.add(d1);
+        documents.add(d2);
+        documents.add(d3);
+        when(apiCommunicator.search(anyList())).thenReturn(documents);
+        when(apiCommunicator.summarizeCategory(anyList())).thenReturn("Mock summary for a category of documents");
         _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
     }
 }
