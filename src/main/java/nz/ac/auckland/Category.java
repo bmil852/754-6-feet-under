@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
+    public Label categoryLabel;
     private String _categoryName;
     private List<Document> _documents;
     private double _popularity;
     private double _relevance = -1.0;
+    private String _summary;
 
     public Category(String categoryName) {
+        categoryLabel = new Label();
         _categoryName = categoryName;
         _documents = new ArrayList<Document>();
     }
@@ -43,4 +46,11 @@ public class Category {
     public void setRelevance(Relevance relevance) {
         _relevance = relevance.nominal_value;
     }
+
+    public String getSummary() {
+        return _summary;
+    }
+
+    public void setSummary(String summary) {
+        _summary = summary;
 }
