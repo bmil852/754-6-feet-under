@@ -16,10 +16,20 @@ public class KeywordService {
 	}
 
 	public void extractFrom(String businessIdea) {
-		if (businessIdea.equals("foo")) {
+		this._keywords = this._keywordExtractor.extractFrom(businessIdea);
+		
+		boolean noKeywordsExtracted = true;
+		for (int i = 0; i < this._keywords.size(); i++) {
+			Keyword keyword = this._keywords.get(i);
+			if (!keyword.word.equals("")) {
+				noKeywordsExtracted = false;
+				break;
+			}
+		}
+		
+		if (noKeywordsExtracted) {
 			throw new InsufficientInformationException();
 		}
-		_keywords = this._keywordExtractor.extractFrom(businessIdea);
 	}
 
 	public void removeKeyword(String word) {
