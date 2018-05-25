@@ -3,6 +3,8 @@ package nz.ac.auckland.unit;
 import nz.ac.auckland.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +21,7 @@ public class TestMarketComprehension {
     APICommunicator apiCommunicator;
     Document d1, d2;
     Category c1,c2;
+    Keyword keyword1, keyword2, keyword3, keyword4;
 
     @Before
     public void setUp(){
@@ -75,8 +78,21 @@ public class TestMarketComprehension {
     @Test
     public void check_if_concise_and_informative_label_for_category_is_formed(){
         //Given
-
-        _searchEngineAlgorithm.searchAndProcess(new ArrayList<Keyword>());
+        List<Keyword> keywords= new ArrayList<>();
+        keyword1 = new Keyword("this");
+        keyword2 = new Keyword("is a");
+        keyword3 = new Keyword("complete");
+        keyword4 = new Keyword("label");
+        keyword1.setWeight(1);
+        keyword2.setWeight(2);
+        keyword3.setWeight(3);
+        keyword4.setWeight(4);
+        keywords.add(keyword1);
+        keywords.add(keyword2);
+        keywords.add(keyword3);
+        keywords.add(keyword4);
+        generate_mock_search_results_after_performing_search();
+        _searchEngineAlgorithm.searchAndProcess(keywords);
         List<Document> documents = _searchEngineAlgorithm.getSearchResults();
 
         //When
