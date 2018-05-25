@@ -30,7 +30,9 @@ public class KeywordService {
 			}
 		}
 		
-		if (keywordDoesNotExist) {
+		if (word.equals("")) {
+			throw new EmptyInputException();
+		} else if (keywordDoesNotExist) {
 			throw new NonExistingKeywordException();
 		}
 	}
