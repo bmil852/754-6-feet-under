@@ -60,6 +60,11 @@ public class MarketComprehensionStepDefinitions {
         assertThat(results.size() > 1, equalTo(true));
     }
 
+    @Then("^each category in the search results will have an associated summary$")
+    public void each_category_in_the_search_results_will_have_an_associated_summary() {
+        
+    }
+
     public void generate_mock_search_documents_to_be_returned_after_performing_search(){
         APICommunicator apiCommunicator = mock(APICommunicator.class);
         List<Document> documents = new ArrayList<>();
