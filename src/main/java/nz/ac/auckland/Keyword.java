@@ -7,9 +7,14 @@ public class Keyword {
 
     public Keyword(String word){
         this.word = word;
+        this.weight = 1;
     }
 
     public void setWeight(int weight){
         this.weight = weight;
     }
+
+	public int getWeight() {
+		return this.weight;
+	}
 }
