@@ -67,6 +67,14 @@ public class MarketComprehensionStepDefinitions {
         }
     }
 
+    @Then("^each category in the search results will have the expected summary$")
+    public void each_category_in_the_search_results_will_have_expected_summary() {
+        _searchEngineAlgorithm.generateSummaryOfResultCategories();
+        for (Category c : _searchEngineAlgorithm.getResultCategories()) {
+            assertEquals(c.getSummary(), "Mock summary for a category of documents");
+        }
+    }
+
     public void generate_mock_search_documents_to_be_returned_after_performing_search(){
         APICommunicator apiCommunicator = mock(APICommunicator.class);
         List<Document> documents = new ArrayList<>();

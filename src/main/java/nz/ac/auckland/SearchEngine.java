@@ -54,7 +54,7 @@ public class SearchEngine {
         Set<Category> categories = getResultCategories();
         for(Category c : categories){
             String summary = apiCommunicator.summarizeCategory(c.getDocuments());
-            c.summary = summary;
+            c.setSummary(summary);
         }
     }
 }
