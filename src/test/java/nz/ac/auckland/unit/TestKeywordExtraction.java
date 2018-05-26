@@ -156,9 +156,10 @@ public class TestKeywordExtraction {
 		
 		// When
 		this._keywordService.updateWeight("dog", 5);
+		List<Keyword> extractedKeywords = this._keywordService.getKeywords();
 		
 		// Then
-		for (Keyword keyword : this._keywordService.getKeywords()) {
+		for (Keyword keyword : extractedKeywords) {
 			if (keyword.word.equals("dog")) {
 				assertTrue(keyword.getWeight() == 5);
 			}
