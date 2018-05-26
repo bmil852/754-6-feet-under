@@ -11,6 +11,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.hamcrest.CoreMatchers.not;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -60,7 +61,9 @@ public class MarketComprehensionStepDefinitions {
 
     @Then("^each category in the search results will have a summary$")
     public void each_category_in_the_search_results_will_have_a_summary() {
-
+        for (Category c : _searchEngineAlgorithm.getResultCategories()) {
+            assertThat(c.getSummary(), not(equalTo(null)));
+        }
     }
 
     public void generate_mock_search_documents_to_be_returned_after_performing_search(){

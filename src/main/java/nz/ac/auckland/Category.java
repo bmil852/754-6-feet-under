@@ -45,4 +45,8 @@ public class Category {
     public void setRelevance(Relevance relevance) {
         _relevance = relevance.nominal_value;
     }
+
+    public String getSummary() {
+        return null;
+    }
 }
