@@ -3,10 +3,8 @@ package nz.ac.auckland.acceptance;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import nz.ac.auckland.APICommunicator;
-import nz.ac.auckland.Document;
-import nz.ac.auckland.Keyword;
-import nz.ac.auckland.SearchEngine;
+import nz.ac.auckland.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,11 +58,18 @@ public class MarketComprehensionStepDefinitions {
         assertThat(results.size() > 1, equalTo(true));
     }
 
+    @Then("^each category in the search results will have a summary$")
+    public void each_category_in_the_search_results_will_have_a_summary() {
+
+    }
+
     public void generate_mock_search_documents_to_be_returned_after_performing_search(){
         APICommunicator apiCommunicator = mock(APICommunicator.class);
         List<Document> documents = new ArrayList<>();
         Document d1 = new Document("First mock text for a document object");
         Document d2 = new Document("Second mock text for a document object");
+        d1.setCategory(new Category("C1"));
+        d2.setCategory(new Category("C2"));
         documents.add(d1);
         documents.add(d2);
         when(apiCommunicator.search(anyList())).thenReturn(documents);
