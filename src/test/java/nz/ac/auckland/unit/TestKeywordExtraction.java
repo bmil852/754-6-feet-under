@@ -3,6 +3,7 @@ package nz.ac.auckland.unit;
 import nz.ac.auckland.AlreadyExistingKeywordException;
 import nz.ac.auckland.EmptyInputException;
 import nz.ac.auckland.InsufficientInformationException;
+import nz.ac.auckland.InvalidKeywordWeightException;
 import nz.ac.auckland.Keyword;
 import nz.ac.auckland.KeywordExtractor;
 import nz.ac.auckland.KeywordService;
