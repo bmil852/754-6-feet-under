@@ -165,4 +165,13 @@ public class TestKeywordExtraction {
 			}
 		}
 	}
+	
+	@Test(expected = InvalidKeywordWeightException.class)
+	public void shouldNotUpdateKeywordWeightToInvalidWeight() {
+		// Given
+		this._keywordService.extractFrom("A dog walking service in Ponsonby");
+		
+		// When
+		this._keywordService.updateWeight("dog", 0);
+	}
 }
