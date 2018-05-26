@@ -10,6 +10,7 @@ public class Category {
     private List<Document> _documents;
     private double _popularity;
     private double _relevance = -1.0;
+    private String summary ="";
 
     public Category(String categoryName) {
         categoryLabel = new Label();
@@ -44,5 +45,13 @@ public class Category {
 
     public void setRelevance(Relevance relevance) {
         _relevance = relevance.nominal_value;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }
