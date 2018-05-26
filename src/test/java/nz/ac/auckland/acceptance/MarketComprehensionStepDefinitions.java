@@ -71,7 +71,7 @@ public class MarketComprehensionStepDefinitions {
     public void each_category_in_the_search_results_will_have_expected_summary() {
         _searchEngineAlgorithm.generateSummaryOfResultCategories();
         for (Category c : _searchEngineAlgorithm.getResultCategories()) {
-            assertThat(c.getSummary().equals("Mock summary for a category of documents"), (equalTo(true)));
+            assertEquals(c.getSummary(), "Mock summary for a category of documents");
         }
     }
 
