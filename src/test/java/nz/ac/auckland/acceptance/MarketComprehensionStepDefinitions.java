@@ -61,7 +61,8 @@ public class MarketComprehensionStepDefinitions {
 
     @Then("^each category in the search results will have a summary$")
     public void each_category_in_the_search_results_will_have_a_summary() {
-        for (Category c : _searchEngineAlgorithm.generateSummaryOfResultCategories()) {
+        _searchEngineAlgorithm.generateSummaryOfResultCategories();
+        for (Category c : _searchEngineAlgorithm.getResultCategories()) {
             assertThat(c.getSummary(), not(equalTo(null)));
         }
     }
