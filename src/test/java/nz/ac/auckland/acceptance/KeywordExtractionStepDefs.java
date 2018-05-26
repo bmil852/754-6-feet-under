@@ -29,13 +29,15 @@ public class KeywordExtractionStepDefs {
 		this._keywordService.updateWeight(word, newWeight);
 	}
 
-	@Then("^the weight of keyword \"(.*)\" is updated to (\\d+)$")
-	public void the_weight_of_keyword_is_updated_to(String word, int newWeight) throws Exception {
+	@Then("^the weight of keyword \"(.*)\" (is|is not) updated to (\\d+)$")
+	public void the_weight_of_keyword_is_updated_to(String word, String updated, int newWeight) throws Exception {
+		boolean weightShouldBeUpdated = updated.equals("is");
+		
 		List<Keyword> extractedKeywords = this._keywordService.getKeywords();
 		for (int i = 0; i < extractedKeywords.size(); i++) {
 			Keyword keyword = extractedKeywords.get(i);
 			if (keyword.word.equals(word)) {
-				assertEquals(keyword.getWeight(), newWeight);
+				assertEquals(keyword.getWeight() == newWeight, weightShouldBeUpdated);
 			}
 		}
 	}
