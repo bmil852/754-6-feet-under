@@ -7,6 +7,7 @@ public class Keyword {
 
     public Keyword(String word){
         this.word = word;
+        this.weight = 1;
     }
 
     public void setWeight(int weight){
