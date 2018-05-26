@@ -148,4 +148,20 @@ public class TestKeywordExtraction {
 		// When
 		this._keywordService.extractFrom("");
 	}
+	
+	@Test
+	public void shouldUpdateKeywordWeightToValidWeight() {
+		// Given
+		this._keywordService.extractFrom("A dog walking service in Ponsonby");
+		
+		// When
+		this._keywordService.updateWeight("dog", 5);
+		
+		// Then
+		for (Keyword keyword : this._keywordService.getKeywords()) {
+			if (keyword.word.equals("dog")) {
+				assertTrue(keyword.getWeight() == 5);
+			}
+		}
+	}
 }
