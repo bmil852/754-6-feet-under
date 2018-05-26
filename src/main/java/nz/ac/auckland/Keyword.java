@@ -14,6 +14,6 @@ public class Keyword {
     }
 
 	public int getWeight() {
-		return 4;
+		return this.weight;
 	}
 }

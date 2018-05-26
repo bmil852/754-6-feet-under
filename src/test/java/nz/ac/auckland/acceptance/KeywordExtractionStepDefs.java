@@ -20,15 +20,7 @@ public class KeywordExtractionStepDefs {
 
 	@Given("^a User already has a number of keywords returned$")
 	public void a_User_already_has_a_number_of_keywords_returned() throws Exception {
-		List<Keyword> extractedKeywords = new ArrayList<Keyword>();
-		extractedKeywords.add(new Keyword("dog"));
-		extractedKeywords.add(new Keyword("walking"));
-		extractedKeywords.add(new Keyword("Ponsonby"));
-
-		KeywordExtractor _keywordExtractor = mock(KeywordExtractor.class);
-		when(_keywordExtractor.extractFrom("A dog walking service in Ponsonby")).thenReturn(extractedKeywords);
-		this._keywordService = new KeywordService(_keywordExtractor);
-
+		initializeKeywordServiceWithMockKeywordExtractor();
 		this._keywordService.extractFrom("A dog walking service in Ponsonby");
 	}
 
@@ -46,5 +38,16 @@ public class KeywordExtractionStepDefs {
 				assertEquals(keyword.getWeight(), newWeight);
 			}
 		}
+	}
+	
+	private void initializeKeywordServiceWithMockKeywordExtractor() {
+		List<Keyword> extractedKeywords = new ArrayList<Keyword>();
+		extractedKeywords.add(new Keyword("dog"));
+		extractedKeywords.add(new Keyword("walking"));
+		extractedKeywords.add(new Keyword("Ponsonby"));
+
+		KeywordExtractor _keywordExtractor = mock(KeywordExtractor.class);
+		when(_keywordExtractor.extractFrom("A dog walking service in Ponsonby")).thenReturn(extractedKeywords);
+		this._keywordService = new KeywordService(_keywordExtractor);
 	}
 }
