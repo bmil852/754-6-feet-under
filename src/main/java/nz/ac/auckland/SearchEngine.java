@@ -49,4 +49,13 @@ public class SearchEngine {
             }
             return categories;
     }
+
+    public Set<Category> generateSummaryOfResultCategories(){
+        Set<Category> categories = getResultCategories();
+        for(Category c : categories){
+            String summary = apiCommunicator.summarizeCategory(c.getDocuments());
+            c.summary = summary;
+        }
+        return  categories;
+    }
 }
