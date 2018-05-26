@@ -3,9 +3,16 @@ package nz.ac.auckland.acceptance;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import nz.ac.auckland.Keyword;
+import nz.ac.auckland.KeywordExtractor;
+import nz.ac.auckland.KeywordService;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class KeywordExtractionStepDefs {
 
@@ -14,8 +21,8 @@ public class KeywordExtractionStepDefs {
 	@Given("^a User already has a number of keywords returned$")
 	public void a_User_already_has_a_number_of_keywords_returned() throws Exception {
 		List<Keyword> extractedKeywords = new ArrayList<Keyword>();
-		extractedKeywords.add(new Keyword("Dog"));
-		extractedKeywords.add(new Keyword("Walking"));
+		extractedKeywords.add(new Keyword("dog"));
+		extractedKeywords.add(new Keyword("walking"));
 		extractedKeywords.add(new Keyword("Ponsonby"));
 
 		KeywordExtractor _keywordExtractor = mock(KeywordExtractor.class);

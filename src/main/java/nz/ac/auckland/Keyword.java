@@ -12,4 +12,8 @@ public class Keyword {
     public void setWeight(int weight){
         this.weight = weight;
     }
+
+	public int getWeight() {
+		return -1;
+	}
 }

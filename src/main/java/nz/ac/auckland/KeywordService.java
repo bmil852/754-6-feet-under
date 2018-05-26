@@ -71,4 +71,8 @@ public class KeywordService {
 		_keywords.add(keyword);
 	}
 
+	public void updateWeight(String word, int newWeight) {
+		
+	}
+
 }
