@@ -3,6 +3,7 @@ package nz.ac.auckland.unit;
 import nz.ac.auckland.AlreadyExistingKeywordException;
 import nz.ac.auckland.EmptyInputException;
 import nz.ac.auckland.InsufficientInformationException;
+import nz.ac.auckland.InvalidKeywordWeightException;
 import nz.ac.auckland.Keyword;
 import nz.ac.auckland.KeywordExtractor;
 import nz.ac.auckland.KeywordService;
@@ -147,5 +148,31 @@ public class TestKeywordExtraction {
 	public void shouldNotAttemptToExtractKeywordsForEmptyInput() {
 		// When
 		this._keywordService.extractFrom("");
+	}
+	
+	@Test
+	public void shouldUpdateKeywordWeightToValidWeight() {
+		// Given
+		this._keywordService.extractFrom("A dog walking service in Ponsonby");
+		
+		// When
+		this._keywordService.updateWeight("dog", 5);
+		List<Keyword> extractedKeywords = this._keywordService.getKeywords();
+		
+		// Then
+		for (Keyword keyword : extractedKeywords) {
+			if (keyword.word.equals("dog")) {
+				assertTrue(keyword.getWeight() == 5);
+			}
+		}
+	}
+	
+	@Test(expected = InvalidKeywordWeightException.class)
+	public void shouldNotUpdateKeywordWeightToInvalidWeight() {
+		// Given
+		this._keywordService.extractFrom("A dog walking service in Ponsonby");
+		
+		// When
+		this._keywordService.updateWeight("dog", 0);
 	}
 }
