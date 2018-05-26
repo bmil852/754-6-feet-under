@@ -71,4 +71,15 @@ public class KeywordService {
 		_keywords.add(keyword);
 	}
 
+	public void updateWeight(String word, int newWeight) {
+		if (newWeight <= 0 || newWeight > 10) return;
+		
+		for (int i = 0; i < this._keywords.size(); i++) {
+			Keyword keyword = this._keywords.get(i);
+			if (keyword.word.equals(word)) {
+				keyword.setWeight(newWeight);
+			}
+		}
+	}
+
 }
