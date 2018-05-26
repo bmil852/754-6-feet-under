@@ -61,7 +61,7 @@ public class MarketComprehensionStepDefinitions {
 
     @Then("^each category in the search results will have a summary$")
     public void each_category_in_the_search_results_will_have_a_summary() {
-        for (Category c : _searchEngineAlgorithm.getResultCategories()) {
+        for (Category c : _searchEngineAlgorithm.generateSummaryOfResultCategories()) {
             assertThat(c.getSummary(), not(equalTo(null)));
         }
     }
@@ -76,6 +76,7 @@ public class MarketComprehensionStepDefinitions {
         documents.add(d1);
         documents.add(d2);
         when(apiCommunicator.search(anyList())).thenReturn(documents);
+        when(apiCommunicator.summarizeCategory(anyList())).thenReturn("Mock summary for a category of documents");
         _searchEngineAlgorithm = new SearchEngine(apiCommunicator);
     }
 
